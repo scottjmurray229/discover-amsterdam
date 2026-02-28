@@ -1,0 +1,804 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Travel Tips', url: '/practical/' },
+];
+
+const pageTitle = 'Amsterdam Travel Tips — Visa, Money, Transport & Safety Guide 2026';
+const pageDescription = 'Everything you need before your first (or tenth) trip to Amsterdam — Schengen visa rules, euros, trains, safety, packing, and cultural etiquette.';
+
+interface TopicSection {
+  id: string;
+  icon: string;
+  title: string;
+  gradient: string;
+  video?: string;
+  items: { label: string; text: string }[];
+}
+
+const topics: TopicSection[] = [
+  {
+    id: 'visa',
+    icon: '🛂',
+    title: 'Visa & Entry Requirements',
+    gradient: 'linear-gradient(135deg, #1565C0 0%, #42A5F5 100%)',
+    video: '/videos/pillar/practical-break-visa.mp4',
+    items: [
+      { label: 'Schengen Visa-Free', text: 'Citizens of the US, UK, Canada, Australia, Japan, and 50+ other countries can enter Amsterdam visa-free for up to 90 days within any 180-day period. Amsterdam is part of the Schengen Area, so your 90 days cover all Schengen countries combined.' },
+      { label: 'ETIAS (Starting 2026)', text: 'The EU\'s new ETIAS travel authorization system requires visa-exempt travelers to register online before arrival. It costs around 7 EUR, is valid for 3 years, and takes minutes to complete. Apply at etias.com before your trip.' },
+      { label: 'Documents to Carry', text: 'Keep your passport on you at all times — Dutch law requires foreigners to carry valid ID. Hotels will photocopy your passport at check-in (required by law). Your passport must be valid for at least 3 months beyond your planned departure from the Schengen area.' },
+      { label: 'EU Citizens', text: 'EU/EEA citizens can enter Amsterdam with just a national ID card — no passport needed. There are no time limits on stays for EU nationals. A European Health Insurance Card (EHIC) provides access to state-run healthcare.' },
+      { label: 'Customs & Duty-Free', text: 'Non-EU travelers can bring up to 200 cigarettes and 1 liter of spirits duty-free. Declare anything over 10,000 EUR in cash. Keep receipts for luxury purchases — you can claim a VAT refund (around 12-15%) at the airport on purchases over 154.94 EUR from participating stores.' },
+    ],
+  },
+  {
+    id: 'money',
+    icon: '💰',
+    title: 'Money & ATMs',
+    gradient: 'linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%)',
+    video: '/videos/pillar/practical-break-money.mp4',
+    items: [
+      { label: 'Currency: The Euro', text: 'Amsterdam uses the Euro (EUR/€). Coins come in 1c, 2c, 5c, 10c, 20c, 50c, 1 EUR, and 2 EUR denominations. Bills run from 5 EUR to 500 EUR (though 500s are rarely accepted). As of 2026, 1 USD is roughly 0.92 EUR.' },
+      { label: 'ATM Strategy', text: 'Use bank ATMs attached to major banks like ING, ABN AMRO, or Rabobank. Avoid standalone ATMs in tourist areas — they charge fees and offer poor exchange rates. Always choose "withdraw without conversion" to avoid dynamic currency conversion markups. ATMs are widely available throughout Amsterdam and accept most international cards.' },
+      { label: 'Card Payments', text: 'The Netherlands is increasingly cashless. Debit cards (especially Maestro) are the standard payment method. Visa and Mastercard are widely accepted at hotels, restaurants, and shops. Some smaller cafes, market stalls, and street vendors are cash-only — always carry at least 20-50 EUR in cash. Amex acceptance is limited.' },
+      { label: 'Tipping Norms', text: 'Tipping is not mandatory in Amsterdam but appreciated. Service charge is usually included in the bill. For good service, rounding up or leaving 5-10% is a kind gesture. Tip 1-2 EUR for hotel porters. Taxi drivers: round up to the nearest euro. At brown cafes, leaving small change is common.' },
+      { label: 'Daily Budget Ranges', text: 'Budget: 60-100 EUR/day — hostels, street food, and public transport. Mid-range: 150-250 EUR/day — 3-star hotels, restaurants, museum entry. Luxury: 350+ EUR/day — canal house hotels, fine dining, private canal boat tours.' },
+      { label: 'VAT Refund', text: 'Non-EU residents can claim a VAT refund on purchases over 154.94 EUR from a single store. Ask for a Tax-Free form at checkout, get it stamped at customs before checking luggage, then claim cash or card credit at the airport refund desk.' },
+    ],
+  },
+  {
+    id: 'transport',
+    icon: '🚂',
+    title: 'Getting Around',
+    gradient: 'linear-gradient(135deg, #E65100 0%, #FF9800 100%)',
+    video: '/videos/pillar/practical-break-transport.mp4',
+    items: [
+      { label: 'GVB Trams, Buses & Metro', text: 'Amsterdam\'s GVB network covers the city with trams, buses, and four metro lines. Trams are the most useful for tourists — lines 2, 5, and 12 connect major attractions. Buy an OV-chipkaart (anonymous or disposable) or use contactless payment. A 1-hour ticket costs 3.40 EUR. Multi-day GVB passes (1-7 days) offer unlimited travel and great value.' },
+      { label: 'OV-Chipkaart', text: 'The OV-chipkaart is the Netherlands\' public transport smart card. Load credit and tap in/out on all GVB, NS, and regional transport. Available at stations and convenience stores. An anonymous card costs 7.50 EUR plus credit. Alternatively, use contactless bank cards or Apple/Google Pay directly on card readers — increasingly the easiest option.' },
+      { label: 'Cycling', text: 'Amsterdam is one of the world\'s best cycling cities. Rent a bike from MacBike, Yellow Bike, or hotel bike rentals (10-15 EUR/day). Follow the dedicated bike lanes and local customs — signal before turning, stay right, don\'t stop in bike lanes. Lock your bike securely with two locks. An OV-fiets rental bike from NS stations costs just 4.55 EUR/24 hours with a personal OV-chipkaart.' },
+      { label: 'NS Trains for Day Trips', text: 'NS (Nederlandse Spoorwegen) trains connect Amsterdam Centraal to day trip destinations: Haarlem (15 min), Zaanse Schans (17 min), Leiden (35 min), The Hague (50 min), Rotterdam (1 hr). Trains run frequently and are comfortable. Buy tickets at ns.nl or use your OV-chipkaart. Book in advance for discounts on longer routes.' },
+      { label: 'Canal Boats & Ferries', text: 'Free GVB ferries cross the IJ river from Centraal Station to Amsterdam North every few minutes — the fastest way to reach NDSM wharf and A\'DAM Tower. Paid canal cruises (15-20 EUR) offer sightseeing tours. Canal bus/hop-on-hop-off boats connect major attractions. Private canal boat rentals are available for self-guided tours.' },
+      { label: 'Taxis & Ride-Hailing', text: 'Licensed taxis are available at stands near Centraal Station, Leidseplein, and Dam Square. Always use metered taxis or agree on a price in advance. Uber works in Amsterdam and is often cheaper than traditional taxis. A taxi from Schiphol Airport to the city center costs 40-50 EUR fixed rate. The train from Schiphol is faster and cheaper (5.60 EUR, 15 minutes).' },
+    ],
+  },
+  {
+    id: 'connectivity',
+    icon: '📱',
+    title: 'SIM Cards & Connectivity',
+    gradient: 'linear-gradient(135deg, #6A1B9A 0%, #AB47BC 100%)',
+    video: '/videos/pillar/practical-break-connectivity.mp4',
+    items: [
+      { label: 'eSIM & Local SIMs', text: 'The easiest option is an eSIM from Airalo or Holafly — set it up before you land. For physical SIMs, KPN, Vodafone NL, and T-Mobile NL sell tourist SIM cards at their stores and at Schiphol Airport. Expect to pay 10-25 EUR for 30 days with 10-50 GB of data. Bring your passport — it\'s required for SIM registration.' },
+      { label: 'US Carrier Coverage', text: 'T-Mobile includes free international data (at 2G speeds) and texting. Google Fi works seamlessly abroad with high-speed data. AT&T International Day Pass costs $12/day. If your plan covers Europe, you may not need a local SIM at all.' },
+      { label: 'WiFi Availability', text: 'Free WiFi is available at most hotels, many cafes, and some public spaces. The Netherlands has excellent internet infrastructure — WiFi speeds of 50-100+ Mbps are common. Amsterdam Centraal Station and Schiphol Airport have free WiFi. Most cafes offer free WiFi to customers.' },
+      { label: 'Messaging', text: 'WhatsApp is the dominant messaging app in the Netherlands — restaurants, tour operators, and hotels often prefer it. Download it before your trip. FaceTime and iMessage work normally over WiFi or data. Tikkie (a Dutch payment app) is popular for splitting bills among locals.' },
+    ],
+  },
+  {
+    id: 'safety',
+    icon: '🏥',
+    title: 'Safety & Health',
+    gradient: 'linear-gradient(135deg, #C62828 0%, #EF5350 100%)',
+    video: '/videos/pillar/practical-break-safety.mp4',
+    items: [
+      { label: 'Travel Insurance', text: 'Get a policy that covers medical expenses and trip cancellation. Dutch emergency rooms will treat you regardless of insurance, but a hospital visit without coverage can cost thousands. We use <a href="https://safetywing.com/?referenceID=24858745&utm_source=24858745&utm_medium=Ambassador" target="_blank" rel="noopener sponsored">SafetyWing</a> for every trip — affordable and covers you worldwide.' },
+      { label: 'EHIC / GHIC (EU Citizens)', text: 'EU citizens should carry a European Health Insurance Card (EHIC) or UK Global Health Insurance Card (GHIC). It covers state-provided medical treatment at the same cost as Dutch residents — meaning most emergency care is free or very low cost.' },
+      { label: 'Hospitals & Pharmacies', text: 'Amsterdam has excellent healthcare. In emergencies, call 112 (EU emergency number). For non-urgent medical issues, call a huisarts (GP) or visit the huisartsenpost (after-hours GP clinic). OLVG and AMC are major hospitals. Pharmacies (apotheek, marked with a green cross) require prescriptions for most medications. A pharmacy in each district is always open — check apotheek.nl for the nearest one.' },
+      { label: 'Tap Water', text: 'Amsterdam tap water is excellent — among the cleanest in Europe. It comes from the dunes and is perfectly safe to drink straight from the tap. Bring a reusable water bottle and save money. Restaurants will serve tap water if you ask for kraanwater (tap water) — it\'s free and clean.' },
+      { label: 'Pickpocket Awareness', text: 'Pickpocketing can occur in crowded tourist areas — especially around Dam Square, the Red Light District, Centraal Station, and on trams. Use a crossbody bag or front-zip backpack. Keep your phone in your front pocket. Amsterdam is generally very safe — violent crime against tourists is extremely rare. The biggest risk is bicycle theft, so always lock rental bikes securely.' },
+      { label: 'Cycling Safety', text: 'Cyclists rule in Amsterdam — there are more bikes than people. As a pedestrian, never walk in bike lanes (red-colored lanes) or you will get an angry bell. As a cyclist, stay in the bike lane, signal turns, and watch for other bikes and trams. Don\'t cycle while using your phone — it\'s illegal. Tram tracks are dangerous for cyclists — cross them at an angle. Wear a light-colored jacket at night.' },
+    ],
+  },
+  {
+    id: 'packing',
+    icon: '🎒',
+    title: 'Packing Essentials',
+    gradient: 'linear-gradient(135deg, #78350F 0%, #D97706 100%)',
+    video: '/videos/pillar/practical-break-packing.mp4',
+    items: [
+      { label: 'Rain Gear', text: 'Amsterdam weather is unpredictable year-round. Pack a compact waterproof jacket and a small umbrella — rain can appear suddenly even on sunny days. A waterproof layer is more essential than sunscreen for most of the year. Waterproof shoes or boots are highly recommended, especially from October through April.' },
+      { label: 'Power Adapters', text: 'The Netherlands uses Type C (2 round pins) and Type F (2 round pins with grounding clips) plugs at 230V. Bring a universal adapter or a European plug adapter. Your phone chargers and laptops are dual-voltage and work fine. Hair dryers and curling irons need to be rated 110-240V — check before plugging in.' },
+      { label: 'Comfortable Walking Shoes', text: 'Amsterdam\'s cobblestone streets and canal bridges require proper walking shoes. Avoid heels and brand-new shoes — break them in before your trip. You\'ll walk 10-15 km per day easily exploring the city. Waterproof or water-resistant shoes are a bonus given the frequent rain. Cycling shoes or sneakers work best.' },
+      { label: 'Layers for All Seasons', text: 'Amsterdam weather calls for layers year-round. Summer (June-August) averages 20-25°C but evenings cool down. Spring and fall can range from 8-18°C with rain. Winter (December-February) is cold and damp (0-7°C). Dress in layers you can add or remove — a light down jacket or fleece is useful even in summer evenings.' },
+      { label: 'Bike-Friendly Clothing', text: 'If you plan to cycle (and you should), avoid loose scarves, long skirts, or anything that might catch in spokes or chains. A crossbody bag or backpack is better than a shoulder bag when cycling. Dutch people cycle in everyday clothes — no need for special cycling gear.' },
+      { label: 'Day Bag', text: 'Carry a crossbody bag or small backpack for daily exploring — phone, water bottle, rain jacket, adapter, and cash. A reusable water bottle is essential since Amsterdam tap water is excellent. Bring a bike lock if renting for multiple days, though most rentals include one.' },
+    ],
+  },
+  {
+    id: 'culture',
+    icon: '🇳🇱',
+    title: 'Language & Cultural Etiquette',
+    gradient: 'linear-gradient(135deg, #0D7377 0%, #14B8A6 100%)',
+    video: '/videos/pillar/practical-break-culture.mp4',
+    items: [
+      { label: 'Basic Dutch Phrases', text: '"Hallo" (hello), "Dank u wel" or "Dankjewel" (thank you), "Alstublieft" (please/here you go), "Sorry" (excuse me), "Hoeveel kost het?" (how much?), "De rekening, alstublieft" (the bill, please), "Waar is het toilet?" (where\'s the bathroom?), "Goedemorgen" (good morning), "Goedemiddag" (good afternoon), "Proost!" (cheers!). Most Dutch people speak excellent English, but a few words in Dutch earn a warm smile.' },
+      { label: 'Language & English', text: 'The Dutch speak some of the best English in Europe — nearly everyone in Amsterdam is fluent. You can get by entirely in English. However, learning a few Dutch phrases shows respect and is always appreciated. Dutch is a Germanic language with similarities to English and German. Don\'t worry about pronunciation — locals are patient and often switch to English to help.' },
+      { label: 'Dining & Borrel Culture', text: 'The Dutch eat dinner early (6-8 PM). Lunch is often a quick broodje (sandwich). The concept of borrel is central to Dutch social life — drinks and snacks (bitterballen, cheese) with friends, typically on Friday afternoons. Brown cafes (bruine kroegen) are the traditional pubs — cozy, unpretentious, and perfect for experiencing local culture. Tap water (kraanwater) is free if you ask.' },
+      { label: 'Dutch Coffee Culture', text: 'Amsterdam has a thriving specialty coffee scene alongside traditional cafes. "Koffie verkeerd" is the Dutch version of a cafe latte. A small cookie (koekje) is always served alongside your coffee. Note: "coffeeshops" in Amsterdam are cannabis cafes, not coffee shops. For actual coffee, look for a "cafe" or "koffiebar" instead.' },
+      { label: 'Gezelligheid', text: 'The untranslatable Dutch concept of gezelligheid — a feeling of warmth, coziness, and togetherness — is central to Dutch culture. Brown cafes, candlelit dinners, cozy living rooms, and convivial gatherings all embody it. The Dutch value directness, punctuality, and practicality. They\'re friendly but not effusive — don\'t mistake directness for rudeness.' },
+      { label: 'Cycling Culture', text: 'Cycling isn\'t just transport in Amsterdam — it\'s a way of life. There are more bikes than people. Cyclists have right of way on bike paths. As a pedestrian, stay out of bike lanes and look both ways before crossing. As a cyclist, signal turns, use lights at night, and never lock your bike to anything that isn\'t a bike rack. The Dutch cycle in all weather, in regular clothes, often with children and groceries.' },
+    ],
+  },
+];
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  schemaData={{ title: pageTitle, description: pageDescription }}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="prac-hero">
+    <video class="prac-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/practical-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="prac-hero-gradient"></div>
+    <div class="prac-hero-noise"></div>
+    <div class="prac-hero-content">
+      <h1 class="prac-hero-title">Amsterdam Travel Essentials</h1>
+      <p class="prac-hero-subtitle">Schengen visa rules, euro strategy, train travel, safety tips, packing lists, and the cultural etiquette that turns a good trip into a great one.</p>
+      <div class="prac-hero-meta">
+        <div class="prac-hero-meta-item">
+          <span class="prac-hero-meta-label">Topics</span>
+          <span class="prac-hero-meta-value">7</span>
+        </div>
+        <div class="prac-hero-meta-item">
+          <span class="prac-hero-meta-label">Updated</span>
+          <span class="prac-hero-meta-value">Feb 2026</span>
+        </div>
+        <div class="prac-hero-meta-item">
+          <span class="prac-hero-meta-label">Trips</span>
+          <span class="prac-hero-meta-value">25+</span>
+        </div>
+      </div>
+    </div>
+    <div class="prac-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="prac-personal reveal">
+    <div class="container-content">
+      <blockquote class="prac-personal-quote">
+        <p>We've made every mistake in this guide at least once — from walking in the bike lane and nearly getting run over to forgetting a rain jacket on a sunny morning that turned into a downpour. After many trips together, we've figured out the practical side of Amsterdam travel so you don't have to learn the hard way. This is the cheat sheet we wish someone had handed us on our first trip.</p>
+        <cite>— Scott &amp; Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Quick Nav -->
+  <section class="prac-quicknav reveal">
+    <div class="container-content">
+      <div class="prac-quicknav-grid">
+        {topics.map((t) => (
+          <a href={`#${t.id}`} class="prac-quicknav-chip">
+            <span class="prac-quicknav-icon">{t.icon}</span>
+            <span class="prac-quicknav-label">{t.title.split(' ').slice(0, 2).join(' ')}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topic Sections -->
+  {topics.map((topic) => (
+    <section class="prac-topic reveal" id={topic.id}>
+      <div class="container-content">
+        <div class="prac-topic-header" style={`background: ${topic.gradient};`}>
+          {topic.video && (
+            <video class="prac-topic-video" autoplay muted loop playsinline preload="none">
+              <source src={topic.video} type="video/mp4" />
+            </video>
+          )}
+          <div class="prac-topic-header-inner">
+            <span class="prac-topic-icon">{topic.icon}</span>
+            <h2 class="prac-topic-title">{topic.title}</h2>
+            <span class="prac-topic-count">{topic.items.length} tips</span>
+          </div>
+        </div>
+
+        <div class="prac-tip-grid">
+          {topic.items.map((item) => (
+            <div class="prac-tip-card">
+              <h3 class="prac-tip-label">{item.label}</h3>
+              <p class="prac-tip-text" set:html={item.text} />
+            </div>
+          ))}
+        </div>
+
+        {topic.id === 'transport' && (
+          <div class="prac-transport-widget">
+            <h3 class="prac-transport-widget-title">Search Routes & Book Transport</h3>
+            <p class="prac-transport-widget-desc">Compare trains, buses, and ferries between Dutch destinations.</p>
+            <div class="prac-transport-widget-inner">
+              <p style="font-size: 0.85rem; color: var(--color-slate);">Use <a href="https://www.ns.nl/en" target="_blank" rel="noopener">NS International</a> to search train routes, or <a href="https://reisinfo.gvb.nl/en" target="_blank" rel="noopener">GVB</a> for Amsterdam tram, bus, and metro connections.</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <!-- Affiliate Disclosure -->
+  <div class="container-content reveal" style="padding-bottom: 0;">
+    <p class="prac-affiliate-disclosure">Some links on this page are affiliate links — we earn a small commission if you purchase through them, at no extra cost to you. We only recommend gear we personally use on our Amsterdam trips. <a href="/legal/affiliate-disclosure/">Full disclosure</a>.</p>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="prac-cta-section reveal">
+    <div class="container-content">
+      <div class="prac-cta-card">
+        <h2 class="prac-cta-heading">Plan Your Amsterdam Trip</h2>
+        <p class="prac-cta-text">Tell our AI planner your dates, budget, and interests — it builds a custom day-by-day itinerary with trains, hotels, and activities.</p>
+        <a href="/plan/" class="prac-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    { question: "Do I need a visa to visit Amsterdam?", answer: "Most nationalities (US, UK, Canada, Australia, Japan, and 50+ others) can enter Amsterdam visa-free for up to 90 days within a 180-day period. Amsterdam is part of the Schengen Area, so this covers all Schengen countries combined. Starting in 2026, visa-exempt travelers will also need ETIAS authorization (7 EUR, valid for 3 years). Bring your passport with at least 3 months' validity beyond your departure date." },
+    { question: "Is Amsterdam safe for tourists?", answer: "Amsterdam is very safe for tourists. Violent crime against visitors is extremely rare. The main concerns are petty theft in crowded areas (Dam Square, Red Light District, Centraal Station) and bicycle-related incidents — stay out of bike lanes when walking. Tourist areas are well-policed. Use common sense: carry a crossbody bag, keep your phone secure, and watch your step near canals at night." },
+    { question: "How much does a trip to Amsterdam cost?", answer: "Budget travelers: 60-100 EUR/day covers hostels, street food, and public transport. Mid-range: 150-250 EUR/day for 3-star hotels, restaurants, and museum entry. Luxury: 350+ EUR/day for canal house hotels, fine dining, and private tours. A 5-day mid-range trip for two costs roughly 2,000-3,500 EUR total including accommodation, meals, transport, and activities. Amsterdam is comparable to other Northern European capitals." },
+    { question: "What is the best way to get around Amsterdam?", answer: "Walking and cycling are the best ways to explore central Amsterdam — most attractions are within 30 minutes on foot. GVB trams, buses, and metro cover the city efficiently. Get an OV-chipkaart or use contactless payment. NS trains connect to day trip destinations like Haarlem, Zaanse Schans, and Keukenhof. Free ferries cross to Amsterdam North from Centraal Station." },
+    { question: "When is the best time to visit Amsterdam?", answer: "April-May is tulip season with pleasant weather and fewer crowds. June-August offers the best weather (18-25°C) but is peak season. King's Day (April 27) is unmissable. September-October has mild weather, cultural events (ADE), and autumn colors. Winter (December-February) is cold but atmospheric, with holiday markets and the Light Festival. The shoulder seasons offer the best value." },
+    { question: "Do I need to speak Dutch?", answer: "No — the Dutch speak excellent English and nearly everyone in Amsterdam is fluent. You can get by entirely in English at hotels, restaurants, museums, and shops. However, learning a few Dutch phrases (Hallo, Dank u wel, Alstublieft, Proost) is always appreciated and earns warm smiles. Google Translate works well offline if you download the Dutch language pack." },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free Amsterdam Travel Essentials Guide"
+      description="A printable PDF covering everything in this guide — plus offline maps, emergency contacts, and a packing checklist."
+      bullets={[
+        'Schengen visa rules and ETIAS registration walkthrough',
+        'ATM strategy and daily budget planner by travel style',
+        'Printable Dutch phrase card for restaurants and transport',
+        'Packing checklist with summer, winter, and shoulder-season variants',
+      ]}
+      guideTag="pillar-practical"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="prac-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="prac-crosslinks-heading">Explore More</h3>
+      <div class="prac-crosslinks-grid">
+        <a href="/destinations/" class="prac-crosslink-card">
+          <span class="prac-crosslink-icon">&#127965;</span>
+          <span class="prac-crosslink-label">All Destinations</span>
+          <span class="prac-crosslink-desc">Every city and region we've explored with honest reviews</span>
+        </a>
+        <a href="/festivals/" class="prac-crosslink-card">
+          <span class="prac-crosslink-icon">&#127914;</span>
+          <span class="prac-crosslink-label">Festival Calendar</span>
+          <span class="prac-crosslink-desc">Amsterdam's best festivals and events, month by month</span>
+        </a>
+        <a href="/cuisine/" class="prac-crosslink-card">
+          <span class="prac-crosslink-icon">&#127860;</span>
+          <span class="prac-crosslink-label">Food & Cuisine</span>
+          <span class="prac-crosslink-desc">Regional Dutch dishes with where to find the best version</span>
+        </a>
+        <a href="/history/" class="prac-crosslink-card">
+          <span class="prac-crosslink-icon">&#127963;</span>
+          <span class="prac-crosslink-label">History & Heritage</span>
+          <span class="prac-crosslink-desc">From the Golden Age to modern Amsterdam</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Practical travel gradient (no video)
+     ================================================================ */
+  .prac-hero {
+    position: relative;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .prac-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .prac-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .prac-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .prac-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .prac-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .prac-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .prac-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .prac-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .prac-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .prac-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .prac-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: pracBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes pracBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     PERSONAL INTRO
+     ================================================================ */
+  .prac-personal {
+    padding-block: var(--space-8);
+  }
+
+  .prac-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid var(--color-ocean-teal);
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .prac-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .prac-personal-quote cite {
+    font-size: var(--text-caption);
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+
+  /* ================================================================
+     QUICK NAV — Jump-to chips
+     ================================================================ */
+  .prac-quicknav {
+    padding: 0 0 var(--space-6);
+  }
+
+  .prac-quicknav-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .prac-quicknav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: var(--weight-medium);
+    color: var(--color-slate);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .prac-quicknav-chip:hover {
+    background: var(--color-sky);
+    color: var(--color-ocean-teal);
+    transform: translateY(-2px);
+  }
+
+  .prac-quicknav-icon {
+    font-size: 1rem;
+  }
+
+  .prac-quicknav-label {
+    white-space: nowrap;
+  }
+
+  /* ================================================================
+     TOPIC SECTION
+     ================================================================ */
+  .prac-topic {
+    padding: var(--space-4) 0 var(--space-6);
+    scroll-margin-top: 80px;
+  }
+
+  .prac-topic-header {
+    position: relative;
+    border-radius: 20px;
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-5);
+    overflow: hidden;
+  }
+
+  .prac-topic-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  .prac-topic-header-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .prac-topic-icon {
+    font-size: 1.6rem;
+  }
+
+  .prac-topic-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .prac-topic-count {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ================================================================
+     TIP CARDS
+     ================================================================ */
+  .prac-tip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .prac-tip-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .prac-tip-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: var(--space-5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .prac-tip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .prac-tip-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    line-height: 1.3;
+  }
+
+  .prac-tip-text {
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .prac-tip-text :global(a) {
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-decoration-color: rgba(13, 115, 119, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .prac-tip-text :global(a:hover) {
+    text-decoration-color: var(--color-ocean-teal);
+  }
+
+  /* ================================================================
+     TRANSPORT WIDGET
+     ================================================================ */
+  .prac-transport-widget {
+    text-align: center;
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    background: var(--color-sky);
+    border-radius: 16px;
+  }
+
+  .prac-transport-widget-title {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-1);
+  }
+
+  .prac-transport-widget-desc {
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    margin: 0 0 var(--space-4);
+  }
+
+  .prac-transport-widget-inner {
+    display: inline-block;
+    max-width: 400px;
+  }
+
+  /* ================================================================
+     AFFILIATE DISCLOSURE
+     ================================================================ */
+  .prac-affiliate-disclosure {
+    font-size: 0.75rem;
+    color: var(--color-slate);
+    line-height: 1.5;
+    text-align: center;
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-sky);
+    border-radius: 10px;
+    margin-bottom: var(--space-4);
+  }
+
+  .prac-affiliate-disclosure a {
+    color: var(--color-ocean-teal);
+    text-decoration: underline;
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .prac-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .prac-cta-card {
+    background: linear-gradient(135deg, var(--color-deep-night) 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .prac-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .prac-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .prac-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .prac-cta-button:hover {
+    background: #d4553b;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .prac-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .prac-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .prac-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .prac-crosslinks-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .prac-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .prac-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .prac-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .prac-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .prac-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .prac-crosslink-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     RESPONSIVE
+     ================================================================ */
+  @media (max-width: 640px) {
+    .prac-hero {
+      min-height: 50vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .prac-hero-meta {
+      gap: var(--space-4);
+    }
+
+    .prac-scroll-hint {
+      display: none;
+    }
+
+    .prac-topic-header {
+      padding: var(--space-4) var(--space-4);
+    }
+  }
+</style>

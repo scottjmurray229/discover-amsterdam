@@ -1,0 +1,93 @@
+{
+  "name": "Amsterdam Highlights",
+  "subtitle": "Canals, Art, and Dutch Culture",
+  "dates": "Apr 20, 2026 - Apr 25, 2026",
+  "days": [
+    {
+      "day": 1,
+      "date": "Mon, Apr 20",
+      "title": "Welcome to Amsterdam",
+      "location": "Centrum",
+      "items": [
+        { "id": "d1-1", "time": "10:00 AM", "icon": "✈️", "type": "transport", "title": "Arrive Schiphol Airport", "detail": "Sprinter train to Amsterdam Centraal (€5.50, 15 min)", "status": "confirmed" },
+        { "id": "d1-2", "time": "1:00 PM", "icon": "🏨", "type": "accommodation", "title": "Check into canal house hotel", "detail": "Boutique hotel on Herengracht (€160/night)", "status": "confirmed" },
+        { "id": "d1-3", "time": "3:00 PM", "icon": "🚢", "type": "activity", "title": "Canal Cruise", "detail": "1-hour cruise through the UNESCO canal ring (€16)", "status": "confirmed" },
+        { "id": "d1-4", "time": "7:30 PM", "icon": "🍽️", "type": "food", "title": "Dinner in Jordaan", "detail": "Dutch bitterballen and craft beer at a brown cafe (€25pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "Tue, Apr 21",
+      "title": "Art & Museums",
+      "location": "Museum Quarter",
+      "items": [
+        { "id": "d2-1", "time": "9:00 AM", "icon": "🏛️", "type": "activity", "title": "Rijksmuseum", "detail": "Dutch Masters and the Night Watch. Book ahead (€22.50)", "status": "confirmed", "lat": 52.3600, "lng": 4.8852 },
+        { "id": "d2-2", "time": "12:00 PM", "icon": "🍽️", "type": "food", "title": "Lunch at Museumplein", "detail": "Broodje haring (herring sandwich) from a stall (€5)", "status": "confirmed" },
+        { "id": "d2-3", "time": "1:30 PM", "icon": "🏛️", "type": "activity", "title": "Van Gogh Museum", "detail": "The world's largest Van Gogh collection (€20)", "status": "confirmed" },
+        { "id": "d2-4", "time": "7:00 PM", "icon": "🍽️", "type": "food", "title": "Indonesian Rijsttafel", "detail": "12-dish rice table at a classic restaurant (€30pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "Wed, Apr 22",
+      "title": "Jordaan & Anne Frank",
+      "location": "Jordaan",
+      "items": [
+        { "id": "d3-1", "time": "9:00 AM", "icon": "🏛️", "type": "activity", "title": "Anne Frank House", "detail": "Timed entry ticket, book 6 weeks ahead (€16)", "status": "confirmed", "lat": 52.3752, "lng": 4.8840 },
+        { "id": "d3-2", "time": "11:30 AM", "icon": "🛍️", "type": "activity", "title": "Nine Streets Shopping", "detail": "Vintage shops, boutiques, and cafes in the canal ring", "status": "confirmed" },
+        { "id": "d3-3", "time": "2:00 PM", "icon": "🍽️", "type": "food", "title": "Pancakes at The Pancake Bakery", "detail": "Dutch pannenkoeken with every topping imaginable (€14)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "Thu, Apr 23",
+      "title": "Markets & De Pijp",
+      "location": "De Pijp",
+      "items": [
+        { "id": "d4-1", "time": "10:00 AM", "icon": "🛒", "type": "activity", "title": "Albert Cuyp Market", "detail": "Amsterdam's biggest outdoor market — stroopwafels, cheese, everything", "status": "confirmed" },
+        { "id": "d4-2", "time": "1:00 PM", "icon": "🍺", "type": "activity", "title": "Heineken Experience", "detail": "Interactive brewery tour with tastings (€23)", "status": "confirmed" },
+        { "id": "d4-3", "time": "5:00 PM", "icon": "🚲", "type": "activity", "title": "Cycling Vondelpark", "detail": "Rent a bike and ride through Amsterdam's beloved park (€12/day)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "Fri, Apr 24",
+      "title": "Day Trip: Zaanse Schans",
+      "location": "Zaanse Schans",
+      "items": [
+        { "id": "d5-1", "time": "9:30 AM", "icon": "🚂", "type": "transport", "title": "Train to Zaandijk", "detail": "17-minute train from Centraal (€4)", "status": "confirmed" },
+        { "id": "d5-2", "time": "10:30 AM", "icon": "🏛️", "type": "activity", "title": "Windmills & Workshops", "detail": "Explore working windmills, clog workshop, cheese farm (free entry, €5-10 per mill)", "status": "confirmed", "lat": 52.4735, "lng": 4.8174 },
+        { "id": "d5-3", "time": "7:00 PM", "icon": "🍽️", "type": "food", "title": "Farewell dinner", "detail": "Stamppot and Dutch apple pie at a canal-side restaurant (€25pp)", "status": "confirmed" }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "Sat, Apr 25",
+      "title": "Departure",
+      "location": "Centrum",
+      "items": [
+        { "id": "d6-1", "time": "10:00 AM", "icon": "✈️", "type": "transport", "title": "Fly home from Schiphol", "detail": "Train from Centraal to AMS. Tot ziens, Amsterdam!", "status": "confirmed" }
+      ]
+    }
+  ],
+  "weather": [
+    { "day": "Mon", "icon": "⛅", "high": 14, "low": 7, "rain": 30 },
+    { "day": "Tue", "icon": "☀️", "high": 15, "low": 8, "rain": 15 },
+    { "day": "Wed", "icon": "⛅", "high": 13, "low": 6, "rain": 40 },
+    { "day": "Thu", "icon": "☀️", "high": 16, "low": 8, "rain": 10 },
+    { "day": "Fri", "icon": "☀️", "high": 15, "low": 7, "rain": 20 },
+    { "day": "Sat", "icon": "⛅", "high": 14, "low": 7, "rain": 25 }
+  ],
+  "contacts": [
+    { "icon": "🚨", "name": "Dutch Emergency", "role": "Emergency Services", "phone": "112" },
+    { "icon": "🏥", "name": "Police", "role": "Non-Emergency", "phone": "0900-8844" },
+    { "icon": "🚂", "name": "NS Rail Info", "role": "Train Service", "phone": "030-2357822" }
+  ],
+  "group": [
+    { "id": "you", "name": "You", "avatar": "🧑", "role": "host", "color": "#0D7377" }
+  ],
+  "notifications": [
+    { "id": 1, "type": "enriched", "text": "Your 6-day Amsterdam itinerary is ready! 18 activities across 5 areas.", "time": "Just now", "read": false }
+  ],
+  "changeLog": []
+}

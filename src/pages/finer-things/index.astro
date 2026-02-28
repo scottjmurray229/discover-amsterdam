@@ -1,0 +1,915 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'The Finer Things', url: '/finer-things/' },
+];
+
+const pageTitle = 'The Finer Things — Dutch Beer, Coffee, Nightlife & Spirits Guide 2026';
+const pageDescription = 'Craft beer in historic brown cafes, specialty coffee culture, Amsterdam nightlife from Leidseplein to Paradiso, and the best jenever, advocaat, and Dutch spirits.';
+
+interface TopicSection {
+  id: string;
+  icon: string;
+  title: string;
+  gradient: string;
+  items: { label: string; text: string; link?: string }[];
+}
+
+const topics: TopicSection[] = [
+  {
+    id: 'beer',
+    icon: '🍺',
+    title: 'Dutch Beer Culture',
+    gradient: 'linear-gradient(135deg, #78350F 0%, #D4A574 100%)',
+    items: [
+      { label: 'Brown Cafes (Bruine Kroegen)', text: 'The heart of Amsterdam drinking culture. These cozy, centuries-old pubs get their name from dark wood paneling and nicotine-stained walls. <strong>€3–5</strong> for a draught beer. Try <strong>Cafe \'t Smalle</strong> in the Jordaan (since 1786), <strong>Cafe Chris</strong> (since 1624), or <strong>In \'t Aepjen</strong> in a 15th-century building near Centraal. Order a <em>biertje</em> (small beer) and settle in — brown cafes are meant for lingering, not rushing.' },
+      { label: 'Heineken & Pilsners', text: 'Amsterdam is the birthplace of Heineken, brewed here since 1864. The <strong>Heineken Experience</strong> in De Pijp is a popular tourist stop (<strong>€21</strong>). But the real Dutch beer experience is ordering a fresh <em>pils</em> (pilsner) in a brown cafe — Heineken, Amstel, or Grolsch are the big three. A properly poured Dutch beer has a thick foam head called <em>een mooie schuimkraag</em>. Expect <strong>€3–5</strong> for a draught anywhere in the city.' },
+      { label: 'Craft Beer Scene', text: 'Amsterdam has exploded with craft breweries. <strong>Brouwerij \'t IJ</strong> brews in a windmill near Artis Zoo — try the Zatte (Belgian-style tripel) or Columbus (barleywine). <strong>Oedipus Brewing</strong> in Noord is trendy and experimental. <strong>Brouwerij de Prael</strong> in the Red Light District employs people with mental health challenges. For the best craft beer bars, visit <strong>Proeflokaal Arendsnest</strong> (100% Dutch craft taps), <strong>BeerTemple</strong>, or <strong>Craft & Draft</strong>. Craft pints run <strong>€5–8</strong>.' },
+      { label: 'Belgian-Style Brews', text: 'The Netherlands shares a deep beer tradition with Belgium. Dutch brewers excel at Belgian-style <strong>tripels, dubbels, and witbieren</strong>. <strong>La Trappe</strong> from the Trappist monastery in Tilburg is one of only 14 Trappist breweries in the world. In Amsterdam, <strong>Cafe Belgique</strong> on Gravenstraat has an outstanding Belgian and Dutch tap list. A <strong>speciaalbier</strong> (specialty beer) at a good bar runs <strong>€5–9</strong>. Ask your bartender for a recommendation — they take it seriously.' },
+      { label: 'Beer Tasting Rooms (Proeflokalen)', text: 'Tasting rooms are a Dutch tradition dating back centuries. <strong>Wynand Fockink</strong> (since 1679) behind Dam Square is a must-visit — tiny, standing-room only, serving jenever and liqueurs in tulip glasses you must sip without hands. <strong>Proeflokaal Arendsnest</strong> stocks only Dutch beers on tap. <strong>Bierfabriek</strong> lets you pour your own at the table. These are places to learn and taste, not get drunk. A tasting flight runs <strong>€8–15</strong>.' },
+      { label: 'How the Dutch Actually Drink', text: 'The Dutch drink socially and moderately. A <em>borrel</em> (social drink after work, usually around 5-7pm) is a beloved tradition. <strong>Beer is served small</strong> — a standard draught is 25cl, not a pint. The Dutch find American-sized beers slightly absurd. At a borrel you\'ll also find <em>bitterballen</em> (fried meat snacks) and cheese. It\'s perfectly acceptable to nurse one beer for an hour. The Dutch don\'t drink to get drunk — they drink to be <em>gezellig</em> (cozy, convivial).' },
+    ],
+  },
+  {
+    id: 'food',
+    icon: '🧆',
+    title: 'Dutch Food & Snacks',
+    gradient: 'linear-gradient(135deg, #E8654A 0%, #FB923C 100%)',
+    items: [
+      { label: 'Bitterballen', text: 'The quintessential Dutch bar snack — crispy deep-fried balls filled with a rich beef ragout. Served with mustard. <strong>€5–8</strong> for a plate at any brown cafe. They\'re the mandatory accompaniment to a <em>borrel</em> (drinks). Warning: the filling is molten hot. Let them cool for a minute. Every bar, every cafe, every party — bitterballen are always there. <strong>Cafe Luxembourg</strong> on Spui and <strong>Cafe \'t Smalle</strong> in the Jordaan serve excellent ones.' },
+      { label: 'Stroopwafels', text: 'Two thin waffle layers sandwiching warm caramel syrup. Fresh from a street market stall is the only way — <strong>€2–4</strong> at Albert Cuyp Market or Dam Square. Place one over your coffee cup to warm the syrup before eating. <strong>Lanskroon</strong> near Dam Square makes exceptional fresh stroopwafels. Factory-made ones from the supermarket are fine, but fresh ones are transformative. The best souvenir you can bring home — they travel well and everyone loves them.' },
+      { label: 'Herring (Haring)', text: 'Raw herring with chopped onions and pickles — held by the tail and eaten in one tilt. <strong>€3–5</strong> at a <em>haringhandel</em> (herring cart). Amsterdam\'s most iconic street food. The season opens in June with <em>Hollandse Nieuwe</em> (new herring). Try <strong>Rob Wigboldus Vishandel</strong> near Dam Square or <strong>Frens Haringhandel</strong> on Koningsplein. Yes, it\'s raw. Yes, you should try it. Ask for <em>met uitjes</em> (with onions) for the authentic experience.' },
+      { label: 'Indonesian Rijsttafel', text: 'Amsterdam\'s most unique culinary tradition — a "rice table" of 12–25 small Indonesian dishes reflecting the Netherlands\' colonial history. Expect satay, rendang, sambal, gado-gado, and dozens more. <strong>€25–45 per person</strong>. <strong>Blauw</strong> on Amstelveenseweg and <strong>Kantjil & de Tijger</strong> on Spuistraat are excellent choices. <strong>Tempo Doeloe</strong> on Utrechtsestraat is considered the best in Amsterdam. Bring a group — rijsttafel is a communal feast.' },
+      { label: 'Cheese (Kaas)', text: 'The Netherlands is cheese country. <strong>Gouda</strong> (young to aged), <strong>Edam</strong>, and <strong>Leyden</strong> are the classics. At Amsterdam\'s cheese shops, taste before you buy. <strong>Reypenaer Cheese Tasting Room</strong> near Dam Square offers guided tastings (<strong>€17.50</strong>) in a century-old warehouse. <strong>De Kaaskamer</strong> on Runstraat stocks over 400 varieties. At Albert Cuyp Market, cheese stalls let you sample generously. Aged Gouda (18+ months) is intense and crystalline — nothing like the rubbery supermarket version.' },
+      { label: 'More Dutch Classics', text: '<strong>Poffertjes:</strong> tiny fluffy pancakes dusted with powdered sugar — <strong>€4–6</strong> at markets. <strong>Stamppot:</strong> mashed potatoes mixed with vegetables and served with smoked sausage — <strong>€12–16</strong> at traditional restaurants. <strong>Kroket:</strong> deep-fried ragout roll, often from a <em>FEBO</em> automat (<strong>€2–3</strong>). <strong>Appeltaart:</strong> Dutch apple pie served with whipped cream — <strong>€4–6</strong> at cafes, best at <strong>Winkel 43</strong> in the Jordaan. <strong>Patat:</strong> Dutch fries with mayonnaise — the real national food.' },
+    ],
+  },
+  {
+    id: 'coffee',
+    icon: '☕',
+    title: 'Amsterdam Coffee Culture',
+    gradient: 'linear-gradient(135deg, #4A3728 0%, #78350F 100%)',
+    items: [
+      { label: 'Specialty Coffee Scene', text: 'Amsterdam is one of Europe\'s top specialty coffee cities. <strong>Lot Sixty One</strong> in the Jordaan roasts their own beans and serves exceptional espresso. <strong>Screaming Beans</strong> near Centraal has award-winning baristas. <strong>Back to Black</strong> in De Pijp is a local favorite. <strong>White Label Coffee</strong> in Oud-West is worth the trek. A flat white or pour-over runs <strong>€3.50–5</strong>. Amsterdam\'s coffee scene rivals Melbourne and Portland — and the Dutch drink more coffee per capita than almost anyone.' },
+      { label: 'Coffeeshop vs. Coffee Shop', text: 'This confuses every tourist. A <strong>coffeeshop</strong> (one word) is where cannabis is sold and consumed — it\'s legal and regulated. A <strong>coffee shop</strong> or <strong>cafe</strong> is where you get actual coffee. They\'re completely different establishments. Famous coffeeshops include <strong>The Bulldog</strong> (tourist-oriented) and <strong>Barney\'s</strong>. If you visit, note the rules: no alcohol, no tobacco mixed with cannabis (since 2008), and bring ID (18+). Most locals prefer quieter coffeeshops away from the Red Light District.' },
+      { label: 'Koffie Culture', text: 'The Dutch invented the coffeehouse tradition that spread across Europe. A <em>koffie verkeerd</em> (literally "wrong coffee") is the Dutch equivalent of a latte — coffee with lots of warm milk. <strong>€2.50–4</strong> at any cafe. The tradition of <em>koffietijd</em> (coffee time) around 10am and 3pm is still honored. Pair it with <em>appeltaart met slagroom</em> (apple pie with whipped cream) for the full experience. Many Dutch people drink 4-5 cups per day — it\'s part of the national character.' },
+      { label: 'Best Coffee Spots', text: '<strong>Centrum:</strong> <strong>Screaming Beans</strong> and <strong>Monk\'s Coffee Roasters</strong> near Dam Square. <strong>Jordaan:</strong> <strong>Lot Sixty One</strong> and <strong>Toki</strong>. <strong>De Pijp:</strong> <strong>Back to Black</strong> and <strong>Scandinavian Embassy</strong>. <strong>Oud-West:</strong> <strong>White Label Coffee</strong>. <strong>Amsterdam North:</strong> <strong>Cafe Modern</strong> at NDSM wharf. For a canal-side coffee experience, <strong>Cafe Papeneiland</strong> in the Jordaan (since 1642) serves great coffee and the city\'s best apple pie.' },
+      { label: 'Tea & Hot Chocolate', text: 'Not a coffee person? <strong>Geisha Tearoom</strong> on Keizersgracht offers over 100 varieties. <strong>T by Daniel</strong> in the Nine Streets is a beautiful specialty tea shop. For hot chocolate, <strong>Van Stapele Koekmakerij</strong> serves a legendary thick hot chocolate alongside their famous chocolate cookies. In winter, <strong>chocomel</strong> (the Dutch hot chocolate drink) is everywhere — often topped with whipped cream. A hot drink at a canal-side cafe on a rainy Amsterdam afternoon is pure <em>gezelligheid</em>.' },
+      { label: 'Coffee Prices at a Glance', text: '<strong>Espresso:</strong> €2.50–3.50. <strong>Flat white / Latte:</strong> €3.50–5. <strong>Koffie verkeerd:</strong> €2.50–4. <strong>Drip/filter coffee:</strong> €2–3. <strong>Cappuccino:</strong> €3–4.50. The golden rule: tourist areas near Dam Square charge more. Walk into the Jordaan, De Pijp, or Amsterdam West and prices drop. The Dutch take their coffee seriously — even basic cafes serve a decent cup. Bring cash to smaller places — some still don\'t take cards for small purchases.' },
+    ],
+  },
+  {
+    id: 'nightlife',
+    icon: '🌃',
+    title: 'Amsterdam Nightlife',
+    gradient: 'linear-gradient(135deg, #4C1D95 0%, #E8654A 100%)',
+    items: [
+      { label: 'Leidseplein & Rembrandtplein', text: '<strong>Leidseplein</strong> is Amsterdam\'s main nightlife square — packed with bars, clubs, and live music venues. <strong>Paradiso</strong> (a converted church) and <strong>Melkweg</strong> (a former dairy) are legendary live music and club venues — tickets <strong>€10–30</strong>. <strong>Rembrandtplein</strong> is more mainstream with cocktail bars and late-night clubs. <strong>Escape</strong> is one of the biggest clubs. Cocktails run <strong>€10–14</strong> in this area. The nightlife peaks Thursday through Saturday and doesn\'t really start until 11pm.' },
+      { label: 'Jordaan & Nine Streets', text: 'For a more local, relaxed evening: the <strong>Jordaan</strong> neighborhood is packed with intimate brown cafes, wine bars, and live music spots. <strong>Cafe \'t Smalle</strong> has a gorgeous canal-side terrace. <strong>Cafe Nol</strong> on Westerstraat features singalong Dutch folk music. The <strong>Nine Streets</strong> area has trendy cocktail bars like <strong>Tales & Spirits</strong> and <strong>Door 74</strong> (a hidden speakeasy — book ahead). Beers run <strong>€3–5</strong>, cocktails <strong>€10–15</strong>. This is where locals actually go.' },
+      { label: 'De Pijp & East', text: '<strong>De Pijp</strong> is Amsterdam\'s most vibrant neighborhood for evening drinks. <strong>Café Sarphaat</strong> and <strong>Boca\'s</strong> are great for pre-dinner drinks. The <strong>Heineken Experience</strong> area has lively bars. Further east, <strong>Canvas</strong> on the 7th floor of the Volkshotel offers rooftop drinks with skyline views. <strong>Oost</strong> (East) has a growing bar scene around Javastraat and the Tropenmuseum area. Expect <strong>€4–6</strong> for craft beers, <strong>€9–14</strong> for cocktails.' },
+      { label: 'Club Scene', text: 'Amsterdam is a world-class club city. <strong>Paradiso</strong> and <strong>Melkweg</strong> host everything from techno to indie. <strong>De School</strong> was legendary (closed 2023, but its spirit continues). <strong>Shelter</strong> under A\'DAM Tower in Noord is a top techno club. <strong>Claire</strong> near Rembrandtplein is upscale. <strong>Disco Dolly</strong> is fun and unpretentious. Club entry runs <strong>€5–20</strong>. Many clubs run until 5am or later. Amsterdam\'s 24-hour nightlife license means some venues literally never close on weekends.' },
+      { label: 'Live Music & Culture', text: '<strong>Paradiso</strong> and <strong>Melkweg</strong> get the biggest acts. <strong>Bimhuis</strong> on the waterfront is world-class jazz. <strong>Concertgebouw</strong> is one of the finest classical music halls on earth (free lunchtime concerts on Wednesdays). <strong>Muziekgebouw aan \'t IJ</strong> hosts contemporary classical. <strong>North Sea Jazz Club</strong> in the Westergasfabriek area is intimate and excellent. During <strong>Amsterdam Dance Event (ADE)</strong> in October, the entire city becomes one massive music festival — 2,500+ events over five days.' },
+      { label: 'The Borrel: Amsterdam\'s Evening Ritual', text: 'The Dutch <em>borrel</em> is sacred — an after-work drinks gathering, usually 5-7pm on Friday. It happens at brown cafes, office buildings, and friends\' homes. The table will have <em>bitterballen</em>, cheese, and small snacks. A beer or wine is standard — cocktails are rare at a traditional borrel. The borrel is how the Dutch transition from work to evening. It\'s relaxed, unhurried, and deeply social. Embrace it — Amsterdam\'s nightlife doesn\'t start when you think it does. The borrel is the warm-up.' },
+    ],
+  },
+  {
+    id: 'spirits',
+    icon: '🥃',
+    title: 'Dutch Spirits & Liqueurs',
+    gradient: 'linear-gradient(135deg, #1A2332 0%, #4A3728 50%, #D4A574 100%)',
+    items: [
+      { label: 'Jenever (Dutch Gin)', text: 'The original gin — jenever (also spelled genever) was invented in the Netherlands and is Amsterdam\'s signature spirit. <strong>Oude jenever</strong> (old-style) is malty and smooth; <strong>jonge jenever</strong> (young-style) is lighter and drier. Served chilled in a tulip-shaped glass filled to the brim — you lean down to sip the first taste without hands (<em>kopstootje</em>, or "headbutt"). <strong>€3–6</strong> per glass. Visit <strong>Wynand Fockink</strong> (since 1679) for the quintessential experience, or <strong>House of Bols</strong> for cocktails and history.' },
+      { label: 'Advocaat', text: 'A rich, creamy liqueur made from eggs, sugar, and brandy — like drinkable custard. The traditional version is thick enough to eat with a spoon. <strong>€4–7</strong> per glass at a bar. In Amsterdam, it\'s served year-round but especially popular in winter. <strong>Van Zuylekom</strong> and <strong>Bols</strong> make the best commercial versions. Some brown cafes still make their own. An <em>advocaatje</em> with whipped cream is the ultimate Dutch dessert drink. It\'s also the ancestor of eggnog.' },
+      { label: 'Bitters & Herbal Liqueurs', text: '<strong>Beerenburg</strong> from Friesland — a bitter herbal liqueur often drunk as a shot. <strong>Dropshot</strong> — a black licorice liqueur that tastes exactly like Dutch drop (licorice candy). <strong>Jagermeister</strong> gets all the fame, but Dutch herbal bitters have a longer tradition. <strong>Coebergh</strong> is a bessen (berry) jenever worth trying. At brown cafes, ask for a <em>borrelplankje</em> (tasting board) of Dutch spirits — usually <strong>€12–18</strong> for a selection of 3–5 spirits with cheese and snacks.' },
+      { label: 'Bols Cocktails', text: '<strong>Bols</strong>, founded in Amsterdam in 1575, is the world\'s oldest distillery brand. The <strong>House of Bols Cocktail & Genever Experience</strong> on Museumplein offers tastings and cocktail-making classes (<strong>€16–20</strong>). Their bartending school has trained thousands. Bols liqueurs — from blue curacao to elderflower — are staples of cocktail bars worldwide. In Amsterdam, order a <strong>Bols Genever cocktail</strong> at any upscale bar for a taste of local history. The Dutch practically invented the cocktail culture that the world now enjoys.' },
+      { label: 'Dutch Wine & Beer Cocktails', text: 'While the Netherlands isn\'t known for wine, Dutch cocktail culture is thriving. <strong>Door 74</strong> is a speakeasy-style cocktail bar (book ahead) with creative Dutch-inspired cocktails. <strong>Tales & Spirits</strong> on Lijnbaansgracht is intimate and inventive. <strong>Hiding in Plain Sight</strong> in De Pijp consistently ranks among the world\'s best bars. Cocktails at these places run <strong>€12–16</strong> but are works of art. For something more casual, try a <em>radler</em> (beer mixed with lemon soda) on a sunny terrace.' },
+      { label: 'The Kopstootje Ritual', text: 'The <em>kopstootje</em> ("headbutt") is Amsterdam\'s most distinctive drinking ritual. Order a jenever and a beer chaser. The jenever glass is filled to the very brim — you lean down and sip from the glass on the bar without using your hands, then chase it with beer. It\'s a tradition dating back centuries. <strong>Wynand Fockink</strong> is the essential place to try this, but any good brown cafe can set you up. Cost: <strong>€6–10</strong> for the pair. It\'s Amsterdam\'s way of saying "welcome — now drink properly."' },
+    ],
+  },
+];
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="ft-hero">
+    <div class="ft-hero-gradient"></div>
+    <div class="ft-hero-noise"></div>
+    <div class="ft-hero-content">
+      <h1 class="ft-hero-title">The Finer Things</h1>
+      <p class="ft-hero-subtitle">Craft beer in a centuries-old brown cafe, specialty coffee in the Jordaan, bitterballen with a borrel, jenever at a 17th-century tasting room, and the best nightlife from Paradiso to hidden speakeasies across every neighborhood.</p>
+      <div class="ft-hero-meta">
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Topics</span>
+          <span class="ft-hero-meta-value">5</span>
+        </div>
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Nightlife Cities</span>
+          <span class="ft-hero-meta-value">5</span>
+        </div>
+        <div class="ft-hero-meta-item">
+          <span class="ft-hero-meta-label">Drinks Covered</span>
+          <span class="ft-hero-meta-value">30+</span>
+        </div>
+      </div>
+    </div>
+    <div class="ft-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="ft-personal ft-reveal">
+    <div class="container-content">
+      <blockquote class="ft-personal-quote">
+        <p>Dutch drinking culture is all about gezelligheid — that untranslatable mix of coziness, warmth, and togetherness. A koffie verkeerd at a canal-side cafe in the morning, craft beer at a brown cafe that hasn't changed since the 1600s, bitterballen with a borrel after work, then jenever at a centuries-old tasting room. Every drink has its place and its time. I've traveled through beer regions across Belgium, Germany, and the UK, and nothing matches the everyday warmth of Amsterdam's drinking culture. A €4 craft beer at a windmill brewery would cost $12 back home — and the setting is incomparable. The best part? The kopstootje. The Dutch don't just pour you a drink; they welcome you into their world.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Quick Facts Strip -->
+  <section class="ft-quickfacts ft-reveal">
+    <div class="container-content">
+      <div class="ft-quickfacts-bar">
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Drinking Age</span>
+          <span class="ft-quickfact-value">18</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Craft Beer</span>
+          <span class="ft-quickfact-value">€5–8</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Jenever</span>
+          <span class="ft-quickfact-value">€3–6</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Draught Beer</span>
+          <span class="ft-quickfact-value">€3–5</span>
+        </div>
+        <div class="ft-quickfact-divider"></div>
+        <div class="ft-quickfact">
+          <span class="ft-quickfact-label">Tipping</span>
+          <span class="ft-quickfact-value">Not expected</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Nav -->
+  <section class="ft-quicknav ft-reveal">
+    <div class="container-content">
+      <div class="ft-quicknav-grid">
+        {topics.map((t) => (
+          <a href={`#${t.id}`} class="ft-quicknav-chip">
+            <span class="ft-quicknav-icon">{t.icon}</span>
+            <span class="ft-quicknav-label">{t.title.split(' ').slice(0, 2).join(' ')}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topic Sections -->
+  {topics.map((topic) => (
+    <section class="ft-topic ft-reveal" id={topic.id}>
+      <div class="container-content">
+        <div class="ft-topic-header" style={`background: ${topic.gradient};`}>
+          <div class="ft-topic-header-inner">
+            <span class="ft-topic-icon">{topic.icon}</span>
+            <h2 class="ft-topic-title">{topic.title}</h2>
+            <span class="ft-topic-count">{topic.items.length} tips</span>
+          </div>
+        </div>
+
+        <div class="ft-tip-grid">
+          {topic.items.map((item) => (
+            <div class="ft-tip-card">
+              <h3 class="ft-tip-label">{item.label}</h3>
+              <p class="ft-tip-text" set:html={item.text} />
+              {item.link && (
+                <a href={item.link} class="ft-tip-link">Explore {item.label.split(':')[0]} &rarr;</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Scott's Pro Tips -->
+  <section class="ft-protips ft-reveal">
+    <div class="container-content">
+      <div class="ft-protips-card">
+        <h2 class="ft-protips-heading">Scott's Pro Tips</h2>
+        <div class="scott-tips">
+          <ul>
+            <li><strong>Brown Cafe Strategy:</strong> Skip the tourist bars on Dam Square and Leidseplein. Instead, head to the Jordaan's brown cafes — Cafe 't Smalle, Cafe Nol, or Cafe Papeneiland. The atmosphere is better, the prices are lower, and you'll be surrounded by locals. Arrive by 5pm on Friday for the borrel crowd.</li>
+            <li><strong>Coffee Savings:</strong> Specialty coffee in Amsterdam is excellent everywhere. A flat white runs €3.50–5 at top roasters. The real savings: skip the Dam Square tourist cafes (€5–6) and walk into the Jordaan or De Pijp for the same quality at €3.50. Screaming Beans and Lot Sixty One are consistently great.</li>
+            <li><strong>Beer Shopping:</strong> Buy Dutch craft beer at specialty shops like <em>Sterk</em> on Haarlemmerstraat or <em>De Bierkoning</em> near Dam Square — over 2,000 beers in stock. Supermarkets carry excellent beers for €1–3 that you can't get abroad. For bringing bottles home, wrap them well in checked luggage — Belgian and Dutch craft beers make outstanding gifts.</li>
+            <li><strong>Nightlife Safety:</strong> Amsterdam is generally safe at night, but watch for pickpockets in crowded areas — especially around Dam Square, the Red Light District, and Leidseplein. Use the GVB night buses or Uber. Never leave drinks unattended at clubs. The Red Light District is safe but stay aware of your surroundings.</li>
+            <li><strong>Tipping at Bars:</strong> Tipping is not expected in Amsterdam but is appreciated. At a cocktail bar, rounding up or leaving €1–2 is generous. Don't tip like you're in the US — 5–10% is considered very generous in Amsterdam. Service charge is sometimes included; check your bill.</li>
+            <li><strong>Best Value Evening:</strong> A biertje (small beer, €3–5) with a plate of bitterballen (€5–8) at a brown cafe in the Jordaan. Total: €8–13 for a genuine Amsterdam evening. Add a jenever (€3–6) and you've had a complete Dutch drinking experience for the price of a single cocktail in New York.</li>
+            <li><strong>Bringing Spirits Home:</strong> US customs allows 1 liter duty-free per person. Jenever and Bols liqueurs make excellent gifts. Pack bottles in the center of your checked bag wrapped in clothes. Beerenburg, advocaat, and aged jenever are distinctive Dutch spirits you can't easily find abroad — we've brought back dozens of bottles with zero breakage.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Affiliate Disclosure -->
+  <div class="container-content ft-reveal" style="padding-bottom: 0;">
+    <p class="ft-affiliate-disclosure">Some links on this page are affiliate links — we earn a small commission if you purchase through them, at no extra cost to you. We only recommend gear we personally use. <a href="/legal/affiliate-disclosure/">Full disclosure</a>.</p>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="ft-cta-section ft-reveal">
+    <div class="container-content">
+      <div class="ft-cta-card">
+        <h2 class="ft-cta-heading">Plan Your Night Out</h2>
+        <p class="ft-cta-text">Tell our AI planner your dates and interests — it'll build a custom itinerary with the best bars, nightlife districts, and local experiences.</p>
+        <a href="/plan/" class="ft-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Capture -->
+  <div class="container-content ft-reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free Amsterdam Beer & Spirits Guide"
+      description="Brown cafes, craft breweries, coffee culture, and nightlife across Amsterdam — packed into one PDF."
+      bullets={[
+        'Best brown cafes and craft beer bars neighborhood by neighborhood',
+        'Complete guide to jenever, advocaat, bitters, and Dutch liqueurs',
+        'Coffee culture — specialty roasters, koffie verkeerd, and the coffeeshop question',
+        'Nightlife districts and borrel spots area by area',
+      ]}
+      guideTag="pillar-finer-things"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="ft-crosslinks ft-reveal">
+    <div class="container-content">
+      <h3 class="ft-crosslinks-heading">Explore More</h3>
+      <div class="ft-crosslinks-grid">
+        <a href="/cuisine/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127860;</span>
+          <span class="ft-crosslink-label">Food & Cuisine</span>
+          <span class="ft-crosslink-desc">35 dishes across 27 destinations, region by region</span>
+        </a>
+        <a href="/festivals/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127914;</span>
+          <span class="ft-crosslink-label">Festival Calendar</span>
+          <span class="ft-crosslink-desc">32 festivals across 29 destinations, month by month</span>
+        </a>
+        <a href="/practical/" class="ft-crosslink-card">
+          <span class="ft-crosslink-icon">&#127754;</span>
+          <span class="ft-crosslink-label">Travel Tips</span>
+          <span class="ft-crosslink-desc">Transport, cycling, tipping, and practical Amsterdam info</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer (uses ft-reveal/ft-visible to avoid Tailwind .visible conflict) -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ftRevealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('ft-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.ft-reveal').forEach((el) => ftRevealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.ft-reveal').forEach((el) => el.classList.add('ft-visible'));
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Warm amber/whiskey gradient
+     ================================================================ */
+  .ft-hero {
+    position: relative;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .ft-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, #1A2332 0%, #78350F 40%, #D4A574 100%);
+  }
+
+  .ft-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .ft-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .ft-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ft-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .ft-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .ft-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ft-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .ft-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .ft-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: ftBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes ftBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     PERSONAL INTRO
+     ================================================================ */
+  .ft-personal {
+    padding-block: var(--space-8);
+  }
+
+  .ft-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid #D4A574;
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ft-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .ft-personal-quote cite {
+    font-size: var(--text-caption);
+    color: #78350F;
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+
+  /* ================================================================
+     QUICK FACTS STRIP
+     ================================================================ */
+  .ft-quickfacts {
+    padding: 0 0 var(--space-4);
+  }
+
+  .ft-quickfacts-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    background: var(--color-sky);
+    border-radius: 16px;
+    padding: var(--space-4) var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .ft-quickfact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+  }
+
+  .ft-quickfact-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+  }
+
+  .ft-quickfact-value {
+    font-size: 1.05rem;
+    font-weight: var(--weight-extrabold);
+    color: var(--color-deep-night);
+  }
+
+  .ft-quickfact-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /* ================================================================
+     QUICK NAV — Jump-to chips
+     ================================================================ */
+  .ft-quicknav {
+    padding: 0 0 var(--space-6);
+  }
+
+  .ft-quicknav-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .ft-quicknav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: var(--weight-medium);
+    color: #4A5568;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .ft-quicknav-chip:hover {
+    background: #FDF8F0;
+    color: #78350F;
+    transform: translateY(-2px);
+  }
+
+  .ft-quicknav-icon {
+    font-size: 1rem;
+  }
+
+  .ft-quicknav-label {
+    white-space: nowrap;
+  }
+
+  /* ================================================================
+     TOPIC SECTION
+     ================================================================ */
+  .ft-topic {
+    padding: var(--space-4) 0 var(--space-6);
+    scroll-margin-top: 80px;
+  }
+
+  .ft-topic-header {
+    position: relative;
+    border-radius: 20px;
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-5);
+    overflow: hidden;
+  }
+
+  .ft-topic-header-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .ft-topic-icon {
+    font-size: 1.6rem;
+  }
+
+  .ft-topic-title {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0;
+    line-height: 1.2;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .ft-topic-count {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ================================================================
+     TIP CARDS
+     ================================================================ */
+  .ft-tip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .ft-tip-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ft-tip-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: var(--space-5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ft-tip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ft-tip-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    line-height: 1.3;
+  }
+
+  .ft-tip-text {
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .ft-tip-text :global(a) {
+    color: #78350F;
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-decoration-color: rgba(120, 53, 15, 0.3);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .ft-tip-text :global(a:hover) {
+    text-decoration-color: #78350F;
+  }
+
+  .ft-tip-link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: 0.8rem;
+    font-weight: var(--weight-semibold);
+    color: #78350F;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ft-tip-link:hover {
+    color: #D4A574;
+  }
+
+  /* ================================================================
+     SCOTT'S PRO TIPS
+     ================================================================ */
+  .ft-protips {
+    padding: var(--space-4) 0 var(--space-6);
+  }
+
+  .ft-protips-card {
+    background: linear-gradient(135deg, #1A2332 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-6) var(--space-6);
+  }
+
+  .ft-protips-heading {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: var(--weight-bold);
+    color: #D4A574;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ft-protips-card .scott-tips {
+    background: transparent;
+    border-left: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ft-protips-card .scott-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .ft-protips-card .scott-tips li {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.65;
+    padding-left: var(--space-4);
+    position: relative;
+  }
+
+  .ft-protips-card .scott-tips li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D4A574;
+  }
+
+  .ft-protips-card .scott-tips :global(strong) {
+    color: #D4A574;
+    font-weight: var(--weight-semibold);
+  }
+
+  .ft-protips-card .scott-tips :global(a) {
+    color: #FB923C;
+    font-weight: var(--weight-semibold);
+    text-decoration: underline;
+    text-decoration-color: rgba(251, 146, 60, 0.4);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .ft-protips-card .scott-tips :global(a:hover) {
+    text-decoration-color: #FB923C;
+  }
+
+  /* ================================================================
+     AFFILIATE DISCLOSURE
+     ================================================================ */
+  .ft-affiliate-disclosure {
+    font-size: 0.75rem;
+    color: #4A5568;
+    line-height: 1.5;
+    text-align: center;
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-sky);
+    border-radius: 10px;
+    margin-bottom: var(--space-4);
+  }
+
+  .ft-affiliate-disclosure a {
+    color: var(--color-ocean-teal);
+    text-decoration: underline;
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .ft-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .ft-cta-card {
+    background: linear-gradient(135deg, #78350F 0%, #D4A574 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .ft-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .ft-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .ft-cta-button {
+    display: inline-block;
+    background: var(--color-deep-night);
+    color: #D4A574;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .ft-cta-button:hover {
+    background: #0D1117;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .ft-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .ft-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ft-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .ft-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ft-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ft-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ft-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .ft-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: #1A2332;
+  }
+
+  .ft-crosslink-desc {
+    font-size: 0.78rem;
+    color: #4A5568;
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     SCROLL REVEAL (page-specific, avoids Tailwind .visible conflict)
+     ================================================================ */
+  .ft-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ft-reveal.ft-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes ftRevealFallback {
+    to { opacity: 1; transform: none; }
+  }
+
+  .ft-reveal {
+    animation: ftRevealFallback 0s 3s forwards;
+  }
+
+  /* ================================================================
+     RESPONSIVE
+     ================================================================ */
+  @media (max-width: 640px) {
+    .ft-hero {
+      min-height: 50vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .ft-hero-meta {
+      gap: var(--space-4);
+    }
+
+    .ft-scroll-hint {
+      display: none;
+    }
+
+    .ft-topic-header {
+      padding: var(--space-4) var(--space-4);
+    }
+
+    .ft-quickfacts-bar {
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .ft-quickfact-divider {
+      display: none;
+    }
+
+    .ft-quickfact {
+      min-width: 80px;
+    }
+
+    .ft-personal-quote {
+      padding: var(--space-4) var(--space-5);
+    }
+
+    .ft-protips-card {
+      padding: var(--space-5) var(--space-4);
+    }
+  }
+</style>

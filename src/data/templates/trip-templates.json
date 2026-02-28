@@ -1,0 +1,72 @@
+[
+  {
+    "id": "classic-amsterdam-4",
+    "title": "Classic Amsterdam Weekend",
+    "duration": "4 days",
+    "route": "Centrum \u2192 Jordaan \u2192 Museum Quarter \u2192 De Pijp",
+    "highlights": ["Anne Frank House", "Rijksmuseum", "Canal Cruise", "Albert Cuyp Market", "Brown Cafes"],
+    "difficulty": "Easy",
+    "bestFor": "First-timers & culture lovers",
+    "emoji": "\ud83c\uddf3\ud83c\uddf1",
+    "popular": true,
+    "destinations": 4,
+    "activities": 14,
+    "destinationSlugs": ["centrum", "jordaan", "museum-quarter", "de-pijp"]
+  },
+  {
+    "id": "art-culture-5",
+    "title": "Art & Culture Deep Dive",
+    "duration": "5 days",
+    "route": "Museum Quarter \u2192 Centrum \u2192 Jordaan \u2192 Plantage \u2192 Haarlem",
+    "highlights": ["Van Gogh Museum", "Rijksmuseum", "Anne Frank House", "Jewish Quarter", "Frans Hals Museum"],
+    "difficulty": "Easy",
+    "bestFor": "Art enthusiasts & history buffs",
+    "emoji": "\ud83c\udfa8",
+    "popular": true,
+    "destinations": 5,
+    "activities": 16,
+    "destinationSlugs": ["museum-quarter", "centrum", "jordaan", "plantage", "haarlem"]
+  },
+  {
+    "id": "food-markets-3",
+    "title": "Foodie Amsterdam",
+    "duration": "3 days",
+    "route": "De Pijp \u2192 Jordaan \u2192 Amsterdam North",
+    "highlights": ["Albert Cuyp Market", "Noordermarkt", "Craft Beer", "Indonesian Rijsttafel", "Street Food"],
+    "difficulty": "Easy",
+    "bestFor": "Food lovers & market explorers",
+    "emoji": "\ud83e\uddc0",
+    "popular": true,
+    "destinations": 3,
+    "activities": 12,
+    "destinationSlugs": ["de-pijp", "jordaan", "amsterdam-north"]
+  },
+  {
+    "id": "day-trips-5",
+    "title": "Amsterdam + Day Trips",
+    "duration": "5 days",
+    "route": "Centrum \u2192 Haarlem \u2192 Zaanse Schans \u2192 Keukenhof",
+    "highlights": ["Canal Ring", "Windmills", "Tulip Gardens", "Haarlem Old Town", "Dutch Countryside"],
+    "difficulty": "Easy",
+    "bestFor": "Families & photographers",
+    "emoji": "\ud83c\udf37",
+    "popular": false,
+    "destinations": 4,
+    "activities": 14,
+    "destinationSlugs": ["centrum", "haarlem", "zaanse-schans", "keukenhof"]
+  },
+  {
+    "id": "alternative-amsterdam-4",
+    "title": "Alternative Amsterdam",
+    "duration": "4 days",
+    "route": "Amsterdam North \u2192 De Pijp \u2192 Red Light District \u2192 Vondelpark",
+    "highlights": ["NDSM Wharf", "Street Art", "Craft Breweries", "Hidden Courtyards", "Live Music"],
+    "difficulty": "Easy",
+    "bestFor": "Creative travelers & nightlife seekers",
+    "emoji": "\ud83c\udfb6",
+    "popular": false,
+    "destinations": 4,
+    "activities": 12,
+    "destinationSlugs": ["amsterdam-north", "de-pijp", "red-light-district", "vondelpark-area"]
+  }
+]

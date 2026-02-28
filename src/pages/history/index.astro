@@ -1,0 +1,1371 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'History & Heritage', url: '/history/' },
+];
+
+const pageTitle = 'Amsterdam History — From the Golden Age to Modern Amsterdam';
+const pageDescription = 'Trace 800 years of Amsterdam history through the places where it happened — from medieval fishing village to Golden Age trading capital to modern cultural powerhouse.';
+
+interface TimelineEvent {
+  date: string;
+  year: number;
+  title: string;
+  location: string;
+  slug?: string | string[];
+  description: string;
+  whatToSee?: string;
+  side: 'left' | 'right';
+  era: 'medieval' | 'golden' | 'decline' | 'modern';
+}
+
+const timeline: TimelineEvent[] = [
+  {
+    date: 'c. 1275',
+    year: 1275,
+    title: 'Amsterdam Founded',
+    location: 'Dam Square, Centrum',
+    slug: 'centrum',
+    description: 'Amsterdam was founded as a small fishing village at the mouth of the Amstel River. In 1275, Count Floris V of Holland granted the settlement a toll privilege — the first official mention of "Amestelledamme." A dam was built across the Amstel, creating what is now Dam Square, the heart of the city.',
+    whatToSee: 'Dam Square marks the original dam location. The Amsterdam Museum traces the city\'s origins from fishing village to global capital.',
+    side: 'left',
+    era: 'medieval',
+  },
+  {
+    date: '1345',
+    year: 1345,
+    title: 'Miracle of Amsterdam',
+    location: 'Centrum',
+    slug: 'centrum',
+    description: 'The Miracle of the Holy Sacrament made Amsterdam a major pilgrimage destination. A dying man\'s communion wafer survived being thrown into a fire. The annual Stille Omgang (Silent Procession) still takes place through the city center — one of Amsterdam\'s oldest traditions.',
+    whatToSee: 'The route of the Stille Omgang passes through Centrum. The chapel site on Kalverstraat marks where the miracle occurred.',
+    side: 'right',
+    era: 'medieval',
+  },
+  {
+    date: '1578',
+    year: 1578,
+    title: 'The Alteratie',
+    location: 'Centrum',
+    slug: 'centrum',
+    description: 'Amsterdam peacefully switched from Catholic to Protestant rule during the Alteratie — a bloodless revolution that aligned the city with the Dutch Revolt against Spain. This set the stage for Amsterdam\'s rise as a haven of religious tolerance, attracting persecuted minorities from across Europe who would fuel the coming Golden Age.',
+    whatToSee: 'The Oude Kerk (Old Church) and Nieuwe Kerk (New Church) were converted from Catholic to Protestant. Hidden Catholic churches (schuilkerken) like Ons\' Lieve Heer op Solder survive as museums.',
+    side: 'left',
+    era: 'medieval',
+  },
+  {
+    date: '1602',
+    year: 1602,
+    title: 'VOC Founded — Birth of Global Trade',
+    location: 'Centrum',
+    slug: 'centrum',
+    description: 'The Dutch East India Company (VOC) was founded in Amsterdam — the world\'s first publicly traded company. It dominated global spice trade, established colonies from Indonesia to South Africa, and made Amsterdam the richest city in Europe. The Amsterdam Stock Exchange was born. The city became the center of world commerce.',
+    whatToSee: 'The VOC headquarters site near Oude Hoogstraat. The Scheepvaartmuseum (Maritime Museum) tells the full story of Dutch maritime power. The Amsterdam Stock Exchange on Beursplein marks where modern capitalism began.',
+    side: 'right',
+    era: 'golden',
+  },
+  {
+    date: '1613–1662',
+    year: 1613,
+    title: 'The Canal Ring Built',
+    location: 'Canal Ring',
+    slug: 'jordaan',
+    description: 'Amsterdam\'s famous concentric canal ring — Herengracht, Keizersgracht, and Prinsengracht — was built as the city expanded to accommodate its booming population. The grandest canal houses belonged to the merchant elite. The Jordaan was built as a working-class neighborhood. This UNESCO World Heritage canal system defines Amsterdam\'s character to this day.',
+    whatToSee: 'The entire Grachtengordel (Canal Ring) is a UNESCO World Heritage Site. Walk the Golden Bend on Herengracht to see the grandest merchant houses. The Museum Van Loon and Museum Willet-Holthuysen offer glimpses inside canal house life.',
+    side: 'left',
+    era: 'golden',
+  },
+  {
+    date: '1632–1669',
+    year: 1632,
+    title: 'Rembrandt & the Dutch Masters',
+    location: 'Museum Quarter & Jordaan',
+    slug: 'museum-quarter',
+    description: 'Rembrandt van Rijn, Vermeer, Frans Hals, and Jan Steen defined the Golden Age of Dutch painting. Rembrandt lived and worked in Amsterdam, painting The Night Watch in 1642. The Dutch Masters pioneered portraiture, genre scenes, and still life — capturing everyday Dutch life with unprecedented realism and emotion.',
+    whatToSee: 'The Rijksmuseum houses The Night Watch and the world\'s greatest collection of Dutch Masters. The Rembrandt House Museum on Jodenbreestraat is where he lived and painted. The Van Gogh Museum covers a later era of Dutch artistic genius.',
+    side: 'right',
+    era: 'golden',
+  },
+  {
+    date: '1637',
+    year: 1637,
+    title: 'Tulip Mania',
+    location: 'Throughout Amsterdam',
+    slug: 'centrum',
+    description: 'The world\'s first speculative bubble — tulip bulb prices soared to extraordinary heights before crashing spectacularly in February 1637. At the peak, a single Semper Augustus bulb sold for more than a canal house. The mania became a cautionary tale about speculation, but tulips remained central to Dutch identity and culture.',
+    whatToSee: 'The Tulip Museum on Prinsengracht tells the story. Keukenhof gardens showcase the legacy. The Bloemenmarkt (Flower Market) on Singel is the world\'s only floating flower market.',
+    side: 'left',
+    era: 'golden',
+  },
+  {
+    date: '1795–1813',
+    year: 1795,
+    title: 'French Occupation',
+    location: 'Centrum',
+    slug: 'centrum',
+    description: 'Napoleon\'s forces occupied the Netherlands from 1795, establishing the Batavian Republic and later the Kingdom of Holland under Napoleon\'s brother Louis. Louis Bonaparte made the City Hall on Dam Square his Royal Palace. The French period brought legal reforms but also economic decline as British naval blockades destroyed Dutch trade.',
+    whatToSee: 'The Royal Palace on Dam Square, originally the City Hall, became a palace under Louis Bonaparte and remains a royal residence. Its stunning interior is open to visitors.',
+    side: 'right',
+    era: 'decline',
+  },
+  {
+    date: '1840s–1889',
+    year: 1840,
+    title: 'Amsterdam Centraal & Modernization',
+    location: 'Centrum',
+    slug: 'centrum',
+    description: 'Amsterdam modernized in the 19th century. The grand Centraal Station (designed by Pierre Cuypers, opened 1889) and the Rijksmuseum (1885) symbolized the city\'s renaissance. The station was controversially built on artificial islands in the IJ river, cutting the city off from its waterfront. Canals were filled for roads, and industrialization transformed the city.',
+    whatToSee: 'Amsterdam Centraal Station and the Rijksmuseum — both designed by Cuypers — bookend the city\'s main axis. The station\'s ornate Gothic-Renaissance facade is an architectural landmark.',
+    side: 'left',
+    era: 'decline',
+  },
+  {
+    date: '1940–1945',
+    year: 1940,
+    title: 'World War II & Anne Frank',
+    location: 'Jordaan & Centrum',
+    slug: 'jordaan',
+    description: 'Germany occupied the Netherlands from May 1940. Amsterdam\'s Jewish community — 80,000 people — was almost entirely deported and murdered. Anne Frank and her family hid in a secret annex on Prinsengracht for two years before being discovered in 1944. The February Strike of 1941, when Amsterdam workers protested the deportation of Jews, was a rare act of mass resistance in occupied Europe.',
+    whatToSee: 'The Anne Frank House on Prinsengracht 263 is Amsterdam\'s most visited museum. The Hollandsche Schouwburg and the National Holocaust Memorial remember the victims. The Resistance Museum tells the story of Dutch resistance and collaboration.',
+    side: 'right',
+    era: 'modern',
+  },
+  {
+    date: '1945–1960s',
+    year: 1945,
+    title: 'Liberation & Reconstruction',
+    location: 'Throughout Amsterdam',
+    slug: 'centrum',
+    description: 'Amsterdam was liberated on May 5, 1945 — Bevrijdingsdag is still celebrated annually. The post-war period brought reconstruction, immigration from former colonies (Indonesia, Suriname), and the beginning of Amsterdam\'s transformation into a multicultural city. The 1960s counterculture movement established Amsterdam\'s reputation for tolerance and freedom.',
+    whatToSee: 'The National Monument on Dam Square commemorates WWII victims. The Verzetsmuseum (Resistance Museum) documents the occupation. Every May 4-5, the city holds solemn Remembrance Day and joyful Liberation Day celebrations.',
+    side: 'left',
+    era: 'modern',
+  },
+  {
+    date: '1970s–1980s',
+    year: 1975,
+    title: 'Squatter Movement & Cultural Revolution',
+    location: 'Throughout Amsterdam',
+    slug: 'amsterdam-north',
+    description: 'Amsterdam\'s squatter movement (kraakbeweging) occupied empty buildings and transformed them into cultural centers. The battles over housing shaped Amsterdam\'s progressive identity. NDSM wharf in Amsterdam North, once a shipyard, became a creative hub. The city\'s famous tolerance policies on cannabis and progressive social legislation emerged during this era.',
+    whatToSee: 'The NDSM wharf in Amsterdam North is the legacy of this era — now a thriving creative district. De Hallen in Oud-West was a squatted tram depot turned cultural center. OT301 on Overtoom was a former film academy squat.',
+    side: 'right',
+    era: 'modern',
+  },
+  {
+    date: 'Present Day',
+    year: 2026,
+    title: 'Modern Amsterdam',
+    location: 'All Neighborhoods',
+    description: 'From medieval fishing village to Golden Age trading capital to modern cultural powerhouse — 800 years of history are woven into every canal, every gable, and every neighborhood. The canal houses still line the water, the Rijksmuseum still displays the Night Watch, and the city\'s tradition of tolerance and innovation continues. History in Amsterdam isn\'t behind glass — it\'s in the cobblestones beneath your feet, the church bells above your head, and the canal reflections that have inspired artists for centuries.',
+    side: 'left',
+    era: 'modern',
+  },
+];
+
+const eraLabels: Record<string, string> = {
+  ancient: 'Ancient Amsterdam — 2700 BC – 330 AD',
+  byzantine: 'Byzantine & Medieval — 330–1453 AD',
+  ottoman: 'Ottoman Period & Independence — 1453–1829',
+  modern: 'Modern Amsterdam — 1829–Present',
+};
+
+const eraGradients: Record<string, string> = {
+  ancient: 'linear-gradient(135deg, #78350F 0%, #D97706 100%)',
+  byzantine: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%)',
+  ottoman: 'linear-gradient(135deg, #B71C1C 0%, #D32F2F 100%)',
+  modern: 'linear-gradient(135deg, #0D7377 0%, #4DB6AC 100%)',
+};
+
+const eraColors: Record<string, string> = {
+  ancient: '#D97706',
+  byzantine: '#7C3AED',
+  ottoman: '#D32F2F',
+  modern: '#0D7377',
+};
+
+// Geo coordinates for map markers
+const geoLookup: Record<string, { lat: number; lng: number }> = {
+  heraklion: { lat: 35.3387, lng: 25.1442 },
+  peloponnese: { lat: 37.5079, lng: 22.3794 },
+  athens: { lat: 37.9838, lng: 23.7275 },
+  thessaloniki: { lat: 40.6401, lng: 22.9444 },
+  meteora: { lat: 39.7217, lng: 21.6307 },
+  corfu: { lat: 39.6243, lng: 19.9217 },
+  chania: { lat: 35.5138, lng: 24.0180 },
+  rhodes: { lat: 36.4341, lng: 28.2176 },
+};
+
+// Build map markers from timeline events that have slugs
+const wwiiMapMarkers = timeline
+  .filter(e => e.slug)
+  .map(e => {
+    const slugs = Array.isArray(e.slug) ? e.slug : [e.slug!];
+    const primarySlug = slugs[0];
+    const geo = geoLookup[primarySlug];
+    if (!geo) return null;
+    return {
+      lat: geo.lat,
+      lng: geo.lng,
+      title: e.title,
+      date: e.date,
+      location: e.location,
+      era: e.era,
+      color: eraColors[e.era],
+      url: `/destinations/${primarySlug}/`,
+    };
+  })
+  .filter(Boolean);
+
+// WW2 card videos — 7 clips cycled across 25 events
+const ww2CardVideos = Array.from({ length: 7 }, (_, i) => `/videos/pillar/ww2-card-${i + 1}.mp4`);
+
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  schemaData={{ title: pageTitle, description: pageDescription }}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="ww2-hero">
+    <video class="ww2-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/history-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="ww2-hero-gradient"></div>
+    <div class="ww2-hero-noise"></div>
+    <div class="ww2-hero-content">
+      <h1 class="ww2-hero-title">Dutch History & Heritage</h1>
+      <p class="ww2-hero-subtitle">From Minoan palaces to Classical Athens, Byzantine monasteries to modern independence — trace 5,000 years of history through the places where it happened.</p>
+      <div class="ww2-hero-meta">
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Events</span>
+          <span class="ww2-hero-meta-value">17</span>
+        </div>
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Destinations</span>
+          <span class="ww2-hero-meta-value">8</span>
+        </div>
+        <div class="ww2-hero-meta-item">
+          <span class="ww2-hero-meta-label">Timeline</span>
+          <span class="ww2-hero-meta-value">2700 BC–Present</span>
+        </div>
+      </div>
+    </div>
+    <div class="ww2-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="ww2-personal reveal">
+    <div class="container-content">
+      <blockquote class="ww2-personal-quote">
+        <p>I was never into ancient history until I stood on the Acropolis at sunrise — looking down at the city where democracy, philosophy, and theater were invented, with the Aegean shimmering in the distance. Something clicked. Amsterdam doesn't just have history — it IS history. Every island, every mountain pass, every small village square has a story stretching back millennia. We've explored ruins on Crete older than the pyramids, stood in the theater at Epidaurus where Sophocles' plays premiered, and walked through Byzantine monasteries perched on impossible cliffs. The past isn't behind glass here — it's alive.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- View Toggle -->
+  <div class="container-content" style="padding-top: var(--space-2); padding-bottom: var(--space-4);">
+    <div class="ww2-view-toggle">
+      <button class="ww2-toggle-btn active" id="ww2BtnTimeline">Timeline</button>
+      <button class="ww2-toggle-btn" id="ww2BtnMap">Map</button>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div id="ww2TimelineView">
+  <section class="ww2-timeline-section">
+    <div class="container-content">
+      <h2 class="ww2-timeline-heading reveal">5,000 Years Across the Islands</h2>
+      <p class="ww2-timeline-sub reveal">From the first Minoan palaces on Crete to the birth of democracy in Athens to the struggle for independence — Amsterdam's history shaped Western civilization. These are the places where it happened, and where it's still visible today.</p>
+
+      <div class="ww2-timeline">
+        <div class="ww2-timeline-line" aria-hidden="true"></div>
+
+        {(() => {
+          let lastEra = '';
+          return timeline.map((event, idx) => {
+            const showEra = event.era !== lastEra;
+            lastEra = event.era;
+            const slugs = Array.isArray(event.slug) ? event.slug : event.slug ? [event.slug] : [];
+            const primarySlug = slugs[0];
+            const cardVideo = ww2CardVideos[idx % ww2CardVideos.length];
+            return (
+              <>
+                {showEra && (
+                  <div class="ww2-era-marker reveal">
+                    <div class="ww2-era-pill" style={`background: ${eraGradients[event.era]};`}>
+                      {eraLabels[event.era]}
+                    </div>
+                  </div>
+                )}
+                <div class={`ww2-event ww2-event--${event.side} reveal`}>
+                  <div class="ww2-event-dot" style={`background: ${eraGradients[event.era]};`}></div>
+                  {primarySlug && slugs.length === 1 ? (
+                    <a href={`/destinations/${primarySlug}/`} class="ww2-event-card">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-see">
+                            <span class="ww2-event-see-label">What to see today:</span>
+                            <p class="ww2-event-see-text">{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <span class="ww2-event-cta">Explore {event.location.split(',')[0]} &rarr;</span>
+                      </div>
+                      <div class="ww2-event-overlay">
+                        <p class="ww2-event-overlay-text">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-overlay-see">
+                            <span class="ww2-event-overlay-see-label">What to see today:</span>
+                            <p>{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <span class="ww2-event-overlay-cta">Explore {event.location.split(',')[0]} &rarr;</span>
+                      </div>
+                    </a>
+                  ) : primarySlug ? (
+                    <div class="ww2-event-card ww2-event-card--multi">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                        {event.whatToSee && (
+                          <div class="ww2-event-see">
+                            <span class="ww2-event-see-label">What to see today:</span>
+                            <p class="ww2-event-see-text">{event.whatToSee}</p>
+                          </div>
+                        )}
+                        <div class="ww2-event-cta-group">
+                          {slugs.map((s) => (
+                            <a href={`/destinations/${s}/`} class="ww2-event-cta ww2-event-cta-link">Explore {s.charAt(0).toUpperCase() + s.slice(1)} &rarr;</a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div class="ww2-event-card ww2-event-card--nolink">
+                      <div class="ww2-event-media" style={`background: ${eraGradients[event.era]};`}>
+                        <video class="ww2-event-video" muted loop playsinline preload="none" data-src={cardVideo}></video>
+                        <span class="ww2-event-date-badge">{event.date}</span>
+                      </div>
+                      <div class="ww2-event-body">
+                        <h3 class="ww2-event-title">{event.title}</h3>
+                        <p class="ww2-event-location">{event.location}</p>
+                        <p class="ww2-event-desc">{event.description}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            );
+          });
+        })()}
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /ww2TimelineView -->
+
+  <!-- Map View (hidden by default) -->
+  <div id="ww2MapView" style="display:none;">
+    <section style="padding: var(--space-4) 0 var(--space-8);">
+      <div class="container-content">
+        <div class="ww2-map-container" id="ww2MapContainer">
+          <div class="ww2-map-tooltip" id="ww2MapTooltip">
+            <div class="ww2-map-tooltip-title" id="ww2TooltipTitle"></div>
+            <div class="ww2-map-tooltip-date" id="ww2TooltipDate"></div>
+            <div class="ww2-map-tooltip-location" id="ww2TooltipLocation"></div>
+          </div>
+          <div id="ww2LeafletMap"></div>
+          <div class="ww2-map-legend">
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#D97706;"></div>Ancient</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#7C3AED;"></div>Byzantine</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#D32F2F;"></div>Ottoman/Independence</div>
+            <div class="ww2-map-legend-item"><div class="ww2-map-legend-dot" style="background:#0D7377;"></div>Modern</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="ww2-cta-section reveal">
+    <div class="container-content">
+      <div class="ww2-cta-card">
+        <h2 class="ww2-cta-heading">Plan a Heritage Trip</h2>
+        <p class="ww2-cta-text">Tell our AI planner you want to follow the heritage trail and it will build a chronological itinerary — Athens, Delphi, Olympia, Meteora, Byzantine Thessaloniki, and more.</p>
+        <a href="/plan/" class="ww2-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    { question: "What are the most important historical sites in Amsterdam?", answer: "The Acropolis in Athens (Classical Amsterdam), the Palace of Knossos on Crete (Minoan civilization), Ancient Olympia (birthplace of the Olympics), Delphi (Oracle of Apollo), Mycenae (Bronze Age fortress), and Meteora (Byzantine monasteries). Each represents a different era of Amsterdam's 5,000-year history. Most archaeological sites charge 8-20 EUR entrance." },
+    { question: "Can you visit ancient ruins in Amsterdam?", answer: "Yes — Amsterdam has hundreds of archaeological sites open to visitors. The Acropolis, Delphi, Olympia, Epidaurus, and Knossos are the most famous. Most sites are open daily from 8am-8pm in summer, shorter hours in winter. Combined tickets (30 EUR) cover multiple Athens sites. Many sites offer free admission on specific dates and for EU students." },
+    { question: "What is the best way to see Dutch history?", answer: "Start in Athens (Acropolis, Agora, National Archaeological Museum), then visit Delphi or the Peloponnese (Mycenae, Epidaurus, Olympia) for ancient Amsterdam. For Byzantine history, Thessaloniki and Meteora are essential. For Minoan civilization, head to Crete's Knossos and Heraklion museum. Our AI Trip Planner can build a heritage-focused itinerary." },
+    { question: "When did Amsterdam become independent?", answer: "The Dutch War of Independence began on March 25, 1821, and ended in 1829 with the Treaty of Adrianople. Nafplio in the Peloponnese was the first capital (1829-1834) before Athens took over. March 25 is celebrated as a national holiday with parades across Amsterdam. The revolution against Ottoman rule was supported by Britain, France, and Russia." },
+    { question: "What is the Acropolis?", answer: "The Acropolis is a rocky hill in the center of Athens crowned by the Parthenon — a temple to Athena built in the 5th century BC under Pericles. It's the most iconic symbol of Classical Amsterdam and Western civilization. The site includes the Erechtheion (with its famous Caryatid porch), the Propylaea gateway, and the Temple of Athena Nike. The Acropolis Museum at its base is world-class." },
+    { question: "What is Meteora?", answer: "Meteora is a cluster of massive sandstone rock pillars in central Amsterdam, topped by Byzantine monasteries built in the 14th-16th centuries. Six monasteries are still active and open to visitors. Monks originally climbed nets and ladders to reach the summits — today there are steps carved into the rock. It's a UNESCO World Heritage Site and one of Amsterdam's most spectacular sights." },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free Dutch Heritage Trail Guide"
+      description="A chronological PDF guide to Amsterdam's greatest historical sites — with directions, opening hours, and the history behind each location."
+      bullets={[
+        'All major archaeological sites with logistics and costs',
+        'Athens heritage walking tour itinerary',
+        'Peloponnese 5-day road trip planner (Mycenae, Epidaurus, Olympia)',
+        'Byzantine Amsterdam: Thessaloniki and Meteora circuit',
+      ]}
+      guideTag="pillar-history"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="ww2-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="ww2-crosslinks-heading">Explore More</h3>
+      <div class="ww2-crosslinks-grid">
+        <a href="/festivals/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127914;</span>
+          <span class="ww2-crosslink-label">Festival Calendar</span>
+          <span class="ww2-crosslink-desc">26 festivals across Amsterdam year-round</span>
+        </a>
+        <a href="/cuisine/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127860;</span>
+          <span class="ww2-crosslink-label">Food & Cuisine</span>
+          <span class="ww2-crosslink-desc">Dutch dishes across 4 regions</span>
+        </a>
+        <a href="/destinations/" class="ww2-crosslink-card">
+          <span class="ww2-crosslink-icon">&#127965;</span>
+          <span class="ww2-crosslink-label">All Destinations</span>
+          <span class="ww2-crosslink-desc">Every destination we've explored</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<!-- View Toggle Logic -->
+<script>
+  const ww2BtnTimeline = document.getElementById('ww2BtnTimeline');
+  const ww2BtnMap = document.getElementById('ww2BtnMap');
+  const ww2TimelineView = document.getElementById('ww2TimelineView');
+  const ww2MapView = document.getElementById('ww2MapView');
+
+  function ww2ShowTimeline() {
+    ww2TimelineView!.style.display = '';
+    ww2MapView!.style.display = 'none';
+    ww2BtnTimeline!.classList.add('active');
+    ww2BtnMap!.classList.remove('active');
+  }
+
+  function ww2ShowMap() {
+    ww2TimelineView!.style.display = 'none';
+    ww2MapView!.style.display = '';
+    ww2BtnTimeline!.classList.remove('active');
+    ww2BtnMap!.classList.add('active');
+    if (window.ww2Map) {
+      window.ww2Map.invalidateSize();
+    }
+  }
+
+  ww2BtnTimeline?.addEventListener('click', ww2ShowTimeline);
+  ww2BtnMap?.addEventListener('click', ww2ShowMap);
+</script>
+
+<!-- Lazy-load & autoplay WW2 card videos on scroll -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const ww2VideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            if (!video.src && video.dataset.src) {
+              video.src = video.dataset.src;
+            }
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { rootMargin: '100px' }
+    );
+    document.querySelectorAll('.ww2-event-video').forEach((v) => ww2VideoObserver.observe(v));
+  }
+</script>
+
+<!-- Leaflet Map for WWII -->
+<script is:inline define:vars={{ markers: wwiiMapMarkers }}>
+  // Load Leaflet CSS
+  if (!document.getElementById('leaflet-css')) {
+    var lnk = document.createElement('link');
+    lnk.id = 'leaflet-css';
+    lnk.rel = 'stylesheet';
+    lnk.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+    document.head.appendChild(lnk);
+  }
+
+  function initWwiiMap() {
+    var mapEl = document.getElementById('ww2LeafletMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    var map = L.map(mapEl, {
+      center: [39.0, 22.0],
+      zoom: 6,
+      scrollWheelZoom: false,
+      minZoom: 5,
+      maxZoom: 12,
+      maxBounds: [[34, 18], [42, 30]],
+      zoomControl: false,
+      attributionControl: false,
+    });
+
+    window.ww2Map = map;
+
+    L.control.attribution({ prefix: false }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '\u00a9 <a href="https://www.openstreetmap.org/copyright">OSM</a> \u00a9 <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    function makeCircle(color, size, stroke) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + color + ';border:2px solid ' + stroke + ';box-shadow:0 0 6px rgba(0,0,0,0.3);cursor:pointer;"></div>',
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+      });
+    }
+
+    var tooltip = document.getElementById('ww2MapTooltip');
+    var tooltipTitle = document.getElementById('ww2TooltipTitle');
+    var tooltipDate = document.getElementById('ww2TooltipDate');
+    var tooltipLocation = document.getElementById('ww2TooltipLocation');
+    var container = document.getElementById('ww2MapContainer');
+
+    markers.forEach(function(m) {
+      var icon = makeCircle(m.color, 16, '#ffffff');
+      var marker = L.marker([m.lat, m.lng], { icon: icon, title: m.title }).addTo(map);
+
+      marker.on('mouseover', function(e) {
+        if (tooltipTitle) tooltipTitle.textContent = m.title;
+        if (tooltipDate) tooltipDate.textContent = m.date;
+        if (tooltipLocation) tooltipLocation.textContent = m.location;
+        if (tooltip) tooltip.classList.add('ww2-tooltip-visible');
+        if (container && tooltip) {
+          var pt = e.containerPoint;
+          tooltip.style.left = (pt.x + 12) + 'px';
+          tooltip.style.top = (pt.y - 10) + 'px';
+        }
+      });
+
+      marker.on('mouseout', function() {
+        if (tooltip) tooltip.classList.remove('ww2-tooltip-visible');
+      });
+
+      marker.on('click', function() {
+        window.location.href = m.url;
+      });
+    });
+  }
+
+  // Load Leaflet JS
+  if (typeof L !== 'undefined') {
+    initWwiiMap();
+  } else {
+    var lscript = document.createElement('script');
+    lscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    lscript.onload = initWwiiMap;
+    document.head.appendChild(lscript);
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO — Dark, somber gradient
+     ================================================================ */
+  .ww2-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .ww2-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .ww2-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .ww2-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .ww2-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .ww2-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ww2-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .ww2-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .ww2-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ww2-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .ww2-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .ww2-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: ww2Bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes ww2Bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     TIMELINE SECTION
+     ================================================================ */
+  .ww2-timeline-section {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .ww2-timeline-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    text-align: center;
+  }
+
+  .ww2-timeline-sub {
+    font-size: 1rem;
+    color: var(--color-slate);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-10);
+    line-height: 1.6;
+  }
+
+  /* Timeline container */
+  .ww2-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Central vertical line */
+  .ww2-timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #D97706 0%, #7C3AED 35%, #D32F2F 65%, #0D7377 100%);
+    transform: translateX(-50%);
+    opacity: 0.3;
+  }
+
+  /* ================================================================
+     ERA MARKERS
+     ================================================================ */
+  .ww2-era-marker {
+    position: relative;
+    text-align: center;
+    margin: var(--space-8) 0 var(--space-6);
+    z-index: 2;
+  }
+
+  .ww2-era-marker:first-child {
+    margin-top: 0;
+  }
+
+  .ww2-era-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 40px;
+  }
+
+  /* ================================================================
+     TIMELINE EVENT
+     ================================================================ */
+  .ww2-event {
+    position: relative;
+    display: flex;
+    margin-bottom: var(--space-6);
+    padding: 0 var(--space-4);
+  }
+
+  .ww2-event--left {
+    justify-content: flex-start;
+    padding-right: calc(50% + 24px);
+  }
+
+  .ww2-event--right {
+    justify-content: flex-end;
+    padding-left: calc(50% + 24px);
+  }
+
+  /* Dot on the timeline */
+  .ww2-event-dot {
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    border: 3px solid var(--color-sand);
+    z-index: 2;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Event card */
+  .ww2-event-card {
+    position: relative;
+    display: block;
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ww2-event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .ww2-event-card--nolink {
+    cursor: default;
+    border-style: dashed;
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .ww2-event-card--nolink:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .ww2-event-media {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: var(--space-3);
+    overflow: hidden;
+  }
+
+  .ww2-event-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .ww2-event-date-badge {
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-event-date-badge {
+    font-size: 0.65rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+
+  .ww2-event-body {
+    padding: var(--space-3) var(--space-4) var(--space-5);
+  }
+
+  .ww2-event-title {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 4px;
+    line-height: 1.25;
+  }
+
+  .ww2-event-location {
+    font-size: 0.72rem;
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-medium);
+    margin: 0 0 var(--space-2);
+  }
+
+  .ww2-event-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.55;
+    margin: 0 0 var(--space-3);
+  }
+
+  .ww2-event-see {
+    background: var(--color-sky);
+    border-radius: 8px;
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-event-see-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ocean-teal);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ww2-event-see-text {
+    font-size: 0.75rem;
+    color: var(--color-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .ww2-event-cta {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-ocean-teal);
+  }
+
+  .ww2-event-cta-group {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .ww2-event-cta-link {
+    color: var(--color-ocean-teal);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ww2-event-cta-link:hover {
+    color: var(--color-ocean-teal-dark, #095456);
+    text-decoration: underline;
+  }
+
+  .ww2-event-card--multi {
+    cursor: default;
+  }
+
+  .ww2-event-card--multi:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Hover overlay */
+  .ww2-event-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 35, 50, 0.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--space-4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+
+  .ww2-event-card:hover .ww2-event-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .ww2-event-overlay-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.55;
+    margin: 0 0 var(--space-2);
+  }
+
+  .ww2-event-overlay-see {
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-event-overlay-see-label {
+    font-size: 0.6rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ww2-event-overlay-see p {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .ww2-event-overlay-cta {
+    font-size: 0.75rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-warm-coral);
+  }
+
+  /* ================================================================
+     RESPONSIVE — Stack timeline on mobile
+     ================================================================ */
+  @media (max-width: 768px) {
+    .ww2-timeline-line {
+      left: 20px;
+    }
+
+    .ww2-event--left,
+    .ww2-event--right {
+      padding-left: 48px;
+      padding-right: 0;
+      justify-content: flex-start;
+    }
+
+    .ww2-event-dot {
+      left: 20px;
+    }
+
+    .ww2-hero {
+      min-height: 55vh;
+      padding: 0 var(--space-4) 40px;
+    }
+
+    .ww2-scroll-hint {
+      display: none;
+    }
+  }
+
+  /* ================================================================
+     BOTTOM CTA
+     ================================================================ */
+  .ww2-cta-section {
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .ww2-cta-card {
+    background: linear-gradient(135deg, var(--color-deep-night) 0%, #2D3748 100%);
+    border-radius: 20px;
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    color: #fff;
+  }
+
+  .ww2-cta-heading {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: var(--weight-bold);
+    margin: 0 0 var(--space-3);
+    color: #fff;
+  }
+
+  .ww2-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 520px;
+    margin: 0 auto var(--space-5);
+    line-height: 1.6;
+  }
+
+  .ww2-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .ww2-cta-button:hover {
+    background: #d4553b;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .ww2-crosslinks {
+    padding: 0 0 var(--space-10);
+  }
+
+  .ww2-crosslinks-heading {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    text-align: center;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ww2-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .ww2-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ww2-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-4);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ww2-crosslink-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .ww2-crosslink-icon {
+    font-size: 1.8rem;
+  }
+
+  .ww2-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .ww2-crosslink-desc {
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     VIEW TOGGLE
+     ================================================================ */
+  .ww2-view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    background: var(--color-sand-dark);
+    border-radius: 40px;
+    padding: 4px;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .ww2-toggle-btn {
+    flex: 1;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 36px;
+    font-size: 0.82rem;
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-slate);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .ww2-toggle-btn.active {
+    background: var(--color-ocean-teal);
+    color: #fff;
+  }
+
+  .ww2-toggle-btn:hover:not(.active) {
+    color: var(--color-deep-night);
+  }
+
+  /* ================================================================
+     MAP VIEW
+     ================================================================ */
+  .ww2-map-container {
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 40% 30%, #0c3547 0%, #091e2f 40%, #060f1a 100%);
+    padding: 28px 20px 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .ww2-map-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 300px at 30% 70%, rgba(13, 115, 119, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 200px at 70% 20%, rgba(13, 115, 119, 0.06) 0%, transparent 70%);
+    animation: ww2OceanShimmer 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  .ww2-map-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 100%),
+      radial-gradient(circle 1px at 60% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
+      radial-gradient(circle 1px at 40% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  @keyframes ww2OceanShimmer {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  #ww2LeafletMap {
+    width: 100%;
+    height: 600px;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-map-tooltip {
+    position: absolute;
+    background: rgba(26, 35, 50, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+    min-width: 160px;
+    max-width: 280px;
+  }
+
+  .ww2-map-tooltip.ww2-tooltip-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ww2-map-tooltip-title {
+    font-size: 0.85rem;
+    font-weight: var(--weight-bold);
+    color: white;
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .ww2-map-tooltip-date {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .ww2-map-tooltip-location {
+    font-size: 0.72rem;
+    color: var(--color-warm-coral);
+    font-weight: var(--weight-medium);
+  }
+
+  .ww2-map-legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ww2-map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .ww2-map-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(13, 115, 119, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    #ww2LeafletMap { height: 450px; }
+  }
+
+  /* Personal intro */
+  .ww2-personal {
+    padding-block: var(--space-8);
+  }
+
+  .ww2-personal-quote {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-8);
+    border-left: 4px solid var(--color-ocean-teal);
+    background: var(--color-sky);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ww2-personal-quote p {
+    font-size: var(--text-body);
+    color: var(--color-heading);
+    line-height: var(--leading-body);
+    font-style: italic;
+    margin-bottom: var(--space-3);
+  }
+
+  .ww2-personal-quote cite {
+    font-size: var(--text-caption);
+    color: var(--color-ocean-teal);
+    font-weight: var(--weight-semibold);
+    font-style: normal;
+  }
+</style>

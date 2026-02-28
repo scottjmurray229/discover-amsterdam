@@ -1,0 +1,169 @@
+{
+  "destinations": {
+    "centrum": {
+      "title": "Centrum",
+      "tagline": "The Historic Heart of Amsterdam",
+      "region": "centrum",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 50, "midRange": 150, "luxury": 400 },
+      "gettingThere": "Walk from Amsterdam Centraal station — you're already here.",
+      "highlights": ["Dam Square", "Royal Palace", "Nieuwe Kerk", "Begijnhof", "Shopping on Kalverstraat"],
+      "essentials": {
+        "gettingAround": "Walking, tram, metro. GVB day pass EUR 8.50. I amsterdam City Card available.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": ["Schiphol Airport (15 min)", "Utrecht (30 min)", "Rotterdam (40 min)"],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "jordaan": {
+      "title": "Jordaan",
+      "tagline": "Amsterdam's Most Charming Neighborhood",
+      "region": "canal-ring",
+      "bestMonths": ["Apr", "May", "Jun", "Sep"],
+      "budgetPerDay": { "backpacker": 55, "midRange": 160, "luxury": 400 },
+      "gettingThere": "10-minute walk west from Dam Square along the canals.",
+      "highlights": ["Anne Frank House", "Westerkerk", "Nine Streets shopping", "Noordermarkt", "Canal-side cafes"],
+      "essentials": {
+        "gettingAround": "Walking is best. Tram 13/17 runs along the edge.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "de-pijp": {
+      "title": "De Pijp",
+      "tagline": "Amsterdam's Foodie Quarter",
+      "region": "south",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 45, "midRange": 140, "luxury": 350 },
+      "gettingThere": "Tram 24 from Centraal or metro to De Pijp station.",
+      "highlights": ["Albert Cuyp Market", "Heineken Experience", "Sarphatipark", "International restaurants", "Craft beer bars"],
+      "essentials": {
+        "gettingAround": "Walking. Metro 52 to De Pijp station. Tram 24.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "museum-quarter": {
+      "title": "Museum Quarter",
+      "tagline": "World-Class Art in a Beautiful Setting",
+      "region": "south",
+      "bestMonths": ["Apr", "May", "Jun", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 55, "midRange": 170, "luxury": 450 },
+      "gettingThere": "Tram 2/5/12 from Centraal to Museumplein.",
+      "highlights": ["Rijksmuseum", "Van Gogh Museum", "Stedelijk Museum", "Concertgebouw", "Museumplein"],
+      "essentials": {
+        "gettingAround": "Walking between museums. Tram 2/5/12.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "amsterdam-north": {
+      "title": "Amsterdam North",
+      "tagline": "The Creative Edge Across the IJ",
+      "region": "north",
+      "bestMonths": ["May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 300 },
+      "gettingThere": "Free ferry from behind Centraal station — 5 minutes.",
+      "highlights": ["A'DAM Lookout", "EYE Film Museum", "NDSM Wharf", "Street art", "Waterfront restaurants"],
+      "essentials": {
+        "gettingAround": "Free GVB ferries, bicycle. Bus 35/36 for further north.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "vondelpark-area": {
+      "title": "Vondelpark Area",
+      "tagline": "Amsterdam's Green Heart",
+      "region": "west",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 50, "midRange": 160, "luxury": 400 },
+      "gettingThere": "Tram 1/2/5 from Centraal. 15-minute walk from Leidseplein.",
+      "highlights": ["Vondelpark", "Open-air theater", "Cycling paths", "Leidseplein nightlife", "Boutique shopping"],
+      "essentials": {
+        "gettingAround": "Walking, cycling. Tram 1/2/5.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "red-light-district": {
+      "title": "Red Light District (De Wallen)",
+      "tagline": "Amsterdam's Most Misunderstood Neighborhood",
+      "region": "centrum",
+      "bestMonths": ["Apr", "May", "Jun", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 50, "midRange": 150, "luxury": 380 },
+      "gettingThere": "5-minute walk east from Dam Square or Centraal station.",
+      "highlights": ["Oude Kerk", "Museum Ons' Lieve Heer op Solder", "Hidden courtyards", "Historic architecture", "Brown cafes"],
+      "essentials": {
+        "gettingAround": "Walking only. Metro 52 to Nieuwmarkt nearby.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "plantage": {
+      "title": "Plantage",
+      "tagline": "Green Oasis of Culture and History",
+      "region": "east",
+      "bestMonths": ["Apr", "May", "Jun", "Sep", "Oct"],
+      "budgetPerDay": { "backpacker": 45, "midRange": 140, "luxury": 350 },
+      "gettingThere": "Tram 14 from Dam Square or walk from Waterlooplein.",
+      "highlights": ["Artis Zoo", "Hortus Botanicus", "Jewish Historical Museum", "NEMO Science Museum", "Tropenmuseum"],
+      "essentials": {
+        "gettingAround": "Walking, tram 14. Metro 51/53/54 to Waterlooplein.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "haarlem": {
+      "title": "Haarlem",
+      "tagline": "Amsterdam's Elegant Neighbor",
+      "region": "day-trip",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Sep"],
+      "budgetPerDay": { "backpacker": 40, "midRange": 120, "luxury": 300 },
+      "gettingThere": "15-minute direct train from Amsterdam Centraal (EUR 4.50).",
+      "highlights": ["Grote Markt", "Frans Hals Museum", "St. Bavo's Church", "Shopping streets", "Beach at Bloemendaal"],
+      "essentials": {
+        "gettingAround": "Walking. Compact historic center. Bus to Bloemendaal beach.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": ["Amsterdam (15 min)", "Leiden (30 min)"],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "zaanse-schans": {
+      "title": "Zaanse Schans",
+      "tagline": "Windmills and Wooden Shoes",
+      "region": "day-trip",
+      "bestMonths": ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+      "budgetPerDay": { "backpacker": 30, "midRange": 80, "luxury": 150 },
+      "gettingThere": "Bus 391 from Amsterdam Centraal (40 min) or train to Zaandijk (17 min).",
+      "highlights": ["Historic windmills", "Clog workshop", "Cheese-making demo", "Dutch village houses", "Zaan River views"],
+      "essentials": {
+        "gettingAround": "Walking. The entire site is compact and pedestrian.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": ["Amsterdam (17 min by train)"],
+        "language": "Dutch (English widely spoken)"
+      }
+    },
+    "keukenhof": {
+      "title": "Keukenhof",
+      "tagline": "The Garden of Europe",
+      "region": "day-trip",
+      "bestMonths": ["Mar", "Apr", "May"],
+      "budgetPerDay": { "backpacker": 30, "midRange": 60, "luxury": 120 },
+      "gettingThere": "Keukenhof Express bus 858 from Schiphol Airport (35 min). Combi tickets include bus + entry.",
+      "highlights": ["7 million tulips", "Indoor flower exhibitions", "Windmill viewpoint", "Tulip fields cycling", "Dutch garden design"],
+      "essentials": {
+        "gettingAround": "Walking within the gardens. Bicycle rental for surrounding tulip fields.",
+        "airport": "Amsterdam Schiphol (AMS)",
+        "trainConnections": [],
+        "language": "Dutch (English widely spoken)"
+      }
+    }
+  }
+}
