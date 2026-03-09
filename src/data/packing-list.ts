@@ -23,6 +23,20 @@ export const AMSTERDAM_CONFIG: PackingConfig = {
   plugType: 'Type C/F',
   plugVoltage: '230V',
   affiliateTag: 'discoverphili-20',
+  seasons: [
+    { value: 'spring', label: 'Spring (Mar–May)' },
+    { value: 'summer', label: 'Summer (Jun–Aug)' },
+    { value: 'fall', label: 'Autumn (Sep–Nov)' },
+    { value: 'winter', label: 'Winter (Dec–Feb)' },
+  ],
+  activities: [
+    { value: 'hiking', label: 'Hiking', icon: '🥾' },
+    { value: 'temples', label: 'Museums & Sites', icon: '🏛️' },
+    { value: 'city-walk', label: 'City Exploring', icon: '🚶' },
+    { value: 'skiing', label: 'Skiing', icon: '⛷️' },
+    { value: 'photography', label: 'Photography', icon: '📸' },
+    { value: 'nightlife', label: 'Nightlife', icon: '🍹' },
+  ],
   destinationEssentials: AMSTERDAM_ESSENTIALS,
   gearRecommendations: AMSTERDAM_GEAR_RECOMMENDATIONS,
 };
