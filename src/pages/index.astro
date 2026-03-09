@@ -32,6 +32,7 @@ const pillarLinks = [
   { icon: '🗺️', label: 'AI Trip Planner', desc: 'Build your itinerary', url: '/plan/' },
 ];
 ---
+import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
 <BaseLayout
   title="Discover Amsterdam — Travel Guides by Scott Murray"
   description="Your comprehensive guide to Amsterdam — from the whitewashed villages of Santorini to the ancient ruins of Athens. Honest recommendations, real prices in euros, and first-hand travel experience."
@@ -335,6 +336,7 @@ const pillarLinks = [
   <div class="container-content">
     <FTCDisclosure placement="inline" />
   </div>
+<NetworkCrossLinks currentSite="Amsterdam" cluster="europe" />
 </BaseLayout>
 
 <!-- Scroll Reveal Observer -->
