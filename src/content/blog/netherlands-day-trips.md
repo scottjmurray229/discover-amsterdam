@@ -2,6 +2,7 @@
 title: "Netherlands Day Trips from Amsterdam: 8 Best Options Ranked"
 description: "The eight best day trips from Amsterdam — Haarlem, Keukenhof, Delft, Utrecht, Kinderdijk, Giethoorn, Rotterdam, and the Zaanse Schans — ranked honestly."
 pubDate: 2026-03-02
+dateModified: 2026-03-08
 heroImage: ""
 heroVideo: ""
 author: "Scott"

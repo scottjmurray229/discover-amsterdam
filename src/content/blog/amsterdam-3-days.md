@@ -2,6 +2,7 @@
 title: "Amsterdam in 3 Days: The Essential Itinerary"
 description: "Three days in Amsterdam — the museums, the canals, the food, and the bike rides that make up the essential Amsterdam experience, day by day."
 pubDate: 2026-03-01
+dateModified: 2026-03-08
 heroImage: ""
 heroVideo: ""
 author: "Scott"
