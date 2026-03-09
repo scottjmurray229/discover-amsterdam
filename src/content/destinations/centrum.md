@@ -3,6 +3,7 @@ title: "Centrum"
 description: "Explore Amsterdam Centrum — Dam Square, Royal Palace, Begijnhof courtyard, and centuries of Dutch history along iconic canal views."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Golden-age canal houses and houseboats lining Amsterdam's historic Centrum canals"
 tagline: "The beating heart of the Golden Age"
 region: centrum
 bestMonths: ["April", "May", "September"]

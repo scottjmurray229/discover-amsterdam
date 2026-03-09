@@ -3,6 +3,7 @@ title: "Red Light District"
 description: "Explore Amsterdam's Red Light District beyond the stereotypes — Oude Kerk, hidden churches, medieval architecture, and centuries of history."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Narrow bridges over dark canals and 17th-century facades in Amsterdam's De Wallen"
 tagline: "Amsterdam's oldest neighborhood, far more than its reputation"
 region: centrum
 bestMonths: ["April", "May", "September"]

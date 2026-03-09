@@ -3,6 +3,7 @@ title: "Plantage"
 description: "Explore Amsterdam's Plantage — Artis Zoo, Hortus Botanicus, Jewish history, NEMO Science Museum, and peaceful green spaces in the east."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Artis Royal Zoo palm greenhouse and botanical garden in Amsterdam's Plantage district"
 tagline: "Where knowledge and nature intertwine"
 region: east
 bestMonths: ["April", "May", "June"]

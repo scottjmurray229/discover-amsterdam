@@ -3,6 +3,7 @@ title: "Museum Quarter"
 description: "Visit Amsterdam's Museum Quarter — Rijksmuseum, Van Gogh Museum, Stedelijk Museum, and the cultural heart of the Netherlands."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Rijksmuseum reflecting pool with cyclists passing beneath its arched gateway, Amsterdam"
 tagline: "Where the masters still hold court"
 region: south
 bestMonths: ["March", "April", "October"]

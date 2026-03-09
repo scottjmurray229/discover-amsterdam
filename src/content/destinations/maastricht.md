@@ -3,6 +3,7 @@ title: "Maastricht"
 description: "Day trip to Maastricht from Amsterdam — the most European of Dutch cities, with Roman ruins, the Vrijthof square, TEFAF art fair, and the best food scene in the Netherlands."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Medieval Vrijthof square and St. Servatius Basilica bathed in afternoon light, Netherlands"
 tagline: "The Netherlands' Most European City"
 region: netherlands
 bestMonths: ["April", "May", "June", "September", "October"]

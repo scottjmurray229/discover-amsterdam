@@ -3,6 +3,7 @@ title: "Haarlem"
 description: "Day trip to Haarlem from Amsterdam — Grote Markt, Frans Hals Museum, St. Bavo's Church, charming streets, and Bloemendaal beach nearby."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Tulip fields in full bloom surrounding Haarlem's Gothic St. Bavo Church, Netherlands"
 tagline: "Amsterdam's elegant neighbor, just fifteen minutes away"
 region: day-trip
 bestMonths: ["May", "June", "September"]

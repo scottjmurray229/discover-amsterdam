@@ -3,6 +3,7 @@ title: "Zaanse Schans"
 description: "Visit Zaanse Schans from Amsterdam — historic windmills, clog workshops, cheese-making demos, and Dutch village life, 17 minutes by train."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Working wooden windmills and green-painted timber houses at Zaanse Schans open-air museum, Netherlands"
 tagline: "Where the windmills still turn and time moves slower"
 region: day-trip
 bestMonths: ["April", "May", "June"]

@@ -3,6 +3,7 @@ title: "Vondelpark Area"
 description: "Relax in Amsterdam's Vondelpark — open-air theater, cycling paths, Leidseplein nightlife, cafe culture, and the city's green escape."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Rose garden pathway and cycling lanes through Amsterdam's beloved Vondelpark"
 tagline: "Amsterdam's backyard, where the city exhales"
 region: west
 bestMonths: ["May", "June", "July"]

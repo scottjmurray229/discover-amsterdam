@@ -3,6 +3,7 @@ title: "Rotterdam"
 description: "Day trip to Rotterdam from Amsterdam — Europe's largest port, groundbreaking architecture, the Cube Houses, Markthal, and a food scene that punches far above the city's industrial reputation."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Futuristic Erasmus Bridge spanning the Maas with Rotterdam's skyline behind, Netherlands"
 tagline: "The City That Reinvented Itself"
 region: netherlands
 bestMonths: ["April", "May", "June", "September", "October"]

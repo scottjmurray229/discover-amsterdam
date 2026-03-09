@@ -3,6 +3,7 @@ title: "Utrecht"
 description: "Day trip to Utrecht from Amsterdam — the canal city with sunken wharves, the Dom Tower, the Rietveld Schröder House, and a vibrant student culture that keeps the city genuinely alive."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Elevated Oudegracht canal wharf cafes beneath Utrecht's soaring Dom Tower, Netherlands"
 tagline: "Amsterdam Without the Crowds"
 region: netherlands
 bestMonths: ["April", "May", "June", "September", "October"]

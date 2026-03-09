@@ -3,6 +3,7 @@ title: "Delft"
 description: "Day trip to Delft from Amsterdam — canals, Vermeer's birthplace, the Royal Delft porcelain factory, the medieval Markt square, and the magnificent Nieuwe Kerk."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Delft Market Square with Gothic Town Hall and Nieuwe Kerk tower, Netherlands"
 tagline: "Vermeer's City, Perfectly Preserved"
 region: netherlands
 bestMonths: ["April", "May", "June", "September", "October"]

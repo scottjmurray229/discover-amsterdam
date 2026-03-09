@@ -3,6 +3,7 @@ title: "Kinderdijk"
 description: "Day trip to Kinderdijk from Amsterdam or Rotterdam — 19 UNESCO windmills in a polder landscape, pumping water since 1740, in the most iconic Dutch scene that actually exists as photographed."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Row of 18th-century windmills reflected in Kinderdijk's still polder canal, Netherlands"
 tagline: "The Windmills That Are Real"
 region: netherlands
 bestMonths: ["April", "May", "July", "August", "September", "October"]

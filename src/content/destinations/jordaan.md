@@ -3,6 +3,7 @@ title: "Jordaan"
 description: "Discover Amsterdam's Jordaan — Anne Frank House, Nine Streets shopping, canal-side terraces, and the gezellig heart of the city."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Charming Jordaan canal bridges draped in bicycles and houseboats, Amsterdam"
 tagline: "Where gezellig was invented"
 region: canal-ring
 bestMonths: ["May", "June", "September"]

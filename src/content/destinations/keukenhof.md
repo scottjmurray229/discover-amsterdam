@@ -3,6 +3,7 @@ title: "Keukenhof"
 description: "Visit Keukenhof Gardens near Amsterdam — 7 million tulips, spring flower exhibitions, windmill views, and cycling through tulip fields (Mar-May)."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Millions of tulips and daffodils carpeting Keukenhof Gardens in spring, Netherlands"
 tagline: "Seven million reasons to visit in spring"
 region: day-trip
 bestMonths: ["March", "April", "May"]

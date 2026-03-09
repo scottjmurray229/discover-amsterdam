@@ -3,6 +3,7 @@ title: "The Hague"
 description: "Day trip to The Hague from Amsterdam — Vermeer's Girl with a Pearl Earring at the Mauritshuis, the International Court of Justice, and the Scheveningen beach resort 20 minutes from the city center."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Peace Palace gardens and International Court of Justice building, The Hague, Netherlands"
 tagline: "Diplomacy, Art, and North Sea Beaches"
 region: netherlands
 bestMonths: ["April", "May", "June", "September", "October"]

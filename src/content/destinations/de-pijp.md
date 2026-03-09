@@ -3,6 +3,7 @@ title: "De Pijp"
 description: "Explore De Pijp, Amsterdam's bohemian neighborhood — Albert Cuyp Market, Heineken Experience, multicultural food, and vibrant nightlife."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Bustling Albert Cuyp Market stalls in Amsterdam's bohemian De Pijp district"
 tagline: "Amsterdam's most flavorful neighborhood"
 region: south
 bestMonths: ["May", "June", "September"]

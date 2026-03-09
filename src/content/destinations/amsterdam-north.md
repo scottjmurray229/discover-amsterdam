@@ -3,6 +3,7 @@ title: "Amsterdam North"
 description: "Discover Amsterdam North — A'DAM Lookout, EYE Film Museum, NDSM Wharf street art, creative studios, and waterfront dining across the IJ."
 heroVideo: ""
 heroImage: ""
+heroAlt: "Industrial NDSM Wharf cultural space along Amsterdam Noord's IJ waterfront"
 tagline: "The free-spirited side across the water"
 region: north
 bestMonths: ["May", "June", "July"]
