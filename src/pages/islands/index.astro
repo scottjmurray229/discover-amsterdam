@@ -1,0 +1,819 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Islands & Beaches', url: '/islands/' },
+];
+
+const pageTitle = 'Netherlands Islands & Beaches 2026 — Wadden Islands to Zeeland';
+const pageDescription = 'The complete guide to Dutch beaches and islands — from UNESCO Wadden Islands (Texel, Vlieland, Terschelling) to Zeeland\'s wild North Sea beaches. Day trips and weekend escapes from Amsterdam.';
+
+const destinations = [
+  {
+    name: 'Texel',
+    type: 'island',
+    distance_from_amsterdam: '90 km / 1.5 hrs by car + 20-min ferry',
+    highlight: 'The largest and most accessible Wadden Island — wide North Sea beaches backed by dunes, the NIOZ marine research institute, De Slufter nature reserve where the sea meets the land, and excellent local lamb, seafood, and gin. Texel has 600km of cycling routes, its own lighthouse at De Cocksdorp, and the Dutch Sheep Shearing Championships every June. The ferry from Den Helder runs all day and takes 20 minutes.',
+    best_time: 'June–September for swimming, March–May for birdwatching (125 breeding species), September for migrating birds',
+    how_to_get_there: 'Amsterdam Centraal → Den Helder by train (1h 20m) or drive N9 → TESO ferry Den Helder to \'t Horntje (20 min, every 30 min). No reservation needed for foot passengers; cars book ahead in summer.',
+  },
+  {
+    name: 'Vlieland',
+    type: 'island',
+    distance_from_amsterdam: '165 km / 2.5 hrs to Harlingen + 90-min ferry',
+    highlight: 'The most peaceful of the Wadden Islands — no cars allowed except for residents. Arrive by ferry and explore entirely on foot or bicycle. One village (Oost-Vlieland), endless dunes, 17km of beach, and the Vliehors nature expanse where WWII wrecks are scattered across the tidal flats. The silence is the point. Photographers and birdwatchers come for weeks. The dark skies make for outstanding stargazing.',
+    best_time: 'May–September; July–August busiest but still quiet by Dutch standards',
+    how_to_get_there: 'Rederij Doeksen ferry from Harlingen (90 min) or Terschelling (45 min). Drive or train to Harlingen from Amsterdam (Lelystad direction). Book ahead in summer — ferry is popular and the island has limited accommodation.',
+  },
+  {
+    name: 'Terschelling',
+    type: 'island',
+    distance_from_amsterdam: '160 km / 2 hrs to Harlingen + 2-hr ferry',
+    highlight: 'The most festive Wadden Island — home to the Oerol Festival every June, a world-class outdoor arts and theater festival that turns the entire island into a stage. Beyond Oerol: lighthouse views over the Wadden Sea, cranberry fields (the island is the only Dutch cranberry producer), the Boschplaat nature reserve at the east end, and the liveliest bar scene of any Wadden Island. Midsland aan Zee beach is one of the finest on the Dutch coast.',
+    best_time: 'June for Oerol (book months ahead), July–August for beach season, October for autumn color in the dunes',
+    how_to_get_there: 'Rederij Doeksen fast catamaran from Harlingen (45 min) or conventional ferry (2 hrs). Drive to Harlingen via A7/A31 from Amsterdam or take train with connection.',
+  },
+  {
+    name: 'Zeeland',
+    type: 'beach',
+    distance_from_amsterdam: '175 km / 2 hrs by car',
+    highlight: 'The Dutch coastal province that feels most like the sea wants to reclaim it — islands and peninsulas connected by the Delta Works (the largest flood barrier in the world). Zeeland has the sunniest weather in the Netherlands, the warmest sea temperatures, wide sandy beaches at Domburg, Zoutelande, and Brouwersdam, and excellent seafood including Zeeland oysters and mussels harvested in the Oosterschelde. Rent a bike in Goes or Middelburg and explore the delta landscape.',
+    best_time: 'June–September; July–August is peak family holiday season with warm sea temperatures (17–20°C)',
+    how_to_get_there: 'Amsterdam → Rotterdam by train (40 min) then intercity to Middelburg/Goes (1h 20m). By car: A4 south through Delft and Rotterdam, cross the Zeeland Bridge on N57. 2 hours total.',
+  },
+  {
+    name: 'Scheveningen',
+    type: 'beach',
+    distance_from_amsterdam: '60 km / 45 min by car or 1 hr by train',
+    highlight: 'The Hague\'s beach resort — Europe\'s largest pier, a long sandy boulevard, beach clubs from family-friendly to party, a working fishing harbor still selling fresh herring (haring), and the famous Kurhaus Hotel that has hosted royalty since 1887. Scheveningen is urban beach done well — you can have a proper city break in The Hague and walk to the sea at the end of the day. The harbor district (Scheveningse Haven) is where Dutch fishermen still bring in the catch.',
+    best_time: 'April–October; Vlaggetjesdag (Flag Day) in late May celebrates the new herring season',
+    how_to_get_there: 'Amsterdam Centraal → Den Haag Centraal (Intercity, 50 min) then tram 9 or 11 to Scheveningen (15 min). By car: A4 south, N14 to The Hague, follow signs to Scheveningen.',
+  },
+  {
+    name: 'Katwijk aan Zee',
+    type: 'beach',
+    distance_from_amsterdam: '55 km / 45 min by car',
+    highlight: 'A genuine Dutch fishing village with a long white beach that is — remarkably — still under-touristed. The lighthouse at the mouth of the Old Rhine, the fishermen\'s quarter with its traditional architecture, the Vuurbaak lighthouse, and a beach that stretches north to Noordwijk without any commercial clutter. Katwijk is where Amsterdammers who know go when they want a beach without the Zandvoort crowds. The tulip fields bloom at Keukenhof, 10 minutes away, making an easy spring combination.',
+    best_time: 'April–May for tulips + beach walks; June–September for swimming',
+    how_to_get_there: 'Amsterdam Centraal → Leiden Centraal (Intercity, 35 min) then bus 31 or 90 to Katwijk (20 min). By car: A4 south to Leiden, then N206 northwest to the coast.',
+  },
+];
+
+const waddenFacts = [
+  { label: 'UNESCO Status', value: 'World Heritage Site since 2009' },
+  { label: 'Tidal Area', value: '11,500 km² shared by Netherlands, Germany, Denmark' },
+  { label: 'Bird Species', value: '10–12 million migratory birds pass through annually' },
+  { label: 'Seal Colonies', value: 'Grey seals and harbor seals breed on sandbanks' },
+  { label: 'Mud Flats', value: 'Wadlopen (mudflat hiking) guided tours available' },
+  { label: 'Islands', value: 'Texel, Vlieland, Terschelling, Ameland, Schiermonnikoog' },
+];
+
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  pageType="destination"
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <header class="nisl-hero">
+    <video class="nisl-hero-video" autoplay muted loop playsinline preload="metadata">
+      <source src="/videos/pillar/islands-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="nisl-hero-gradient"></div>
+    <div class="nisl-hero-noise"></div>
+
+    <div class="nisl-hero-content">
+      <h1 class="nisl-hero-title">Netherlands Islands & Beaches 2026</h1>
+      <p class="nisl-hero-subtitle">From the UNESCO Wadden Islands — the world's largest intertidal sand and mud flat system — to Zeeland's wild North Sea coast and Scheveningen's beach boulevard. All reachable from Amsterdam in under 3 hours.</p>
+      <div class="nisl-hero-meta">
+        <div class="nisl-hero-meta-item">
+          <span class="nisl-hero-meta-label">Destinations</span>
+          <span class="nisl-hero-meta-value">6</span>
+        </div>
+        <div class="nisl-hero-meta-item">
+          <span class="nisl-hero-meta-label">Wadden Islands</span>
+          <span class="nisl-hero-meta-value">UNESCO</span>
+        </div>
+        <div class="nisl-hero-meta-item">
+          <span class="nisl-hero-meta-label">From Amsterdam</span>
+          <span class="nisl-hero-meta-value">45 min – 3 hrs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nisl-scroll-hint">Scroll<br />&#8595;</div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container-content">
+    <Breadcrumb items={breadcrumbs} />
+  </div>
+
+  <!-- Personal intro -->
+  <section class="nisl-personal reveal">
+    <div class="container-content">
+      <blockquote class="nisl-personal-quote">
+        <p>The Dutch coast surprises visitors who expect flat and grey. Texel's beaches rival anything in the Mediterranean for sand quality — it's just 15°C instead of 30°C. The Wadden Islands are genuinely one of Europe's great natural wonders: no cars on Vlieland, 10 million migrating birds overhead, seals on the sandbanks, and a silence that Amsterdam-weary visitors desperately need. Zeeland's delta landscape is surreal engineering and beautiful coastline in equal measure. All of it is under 3 hours from Central Station.</p>
+        <cite>— Scott</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Destination Cards -->
+  <section class="nisl-grid-section reveal">
+    <div class="container-content">
+      <h2 class="nisl-section-heading">Islands & Beaches</h2>
+      <p class="nisl-section-sub">Six Dutch coastal escapes from day trip to long weekend — with honest notes on how to get there.</p>
+
+      <div class="nisl-grid">
+        {destinations.map((dest) => (
+          <article class="nisl-card reveal">
+            <div class={`nisl-card-header nisl-card-header--${dest.type}`}>
+              <div class="nisl-card-header-inner">
+                <div class="nisl-card-type-badge">{dest.type === 'island' ? 'Wadden Island' : 'Coastal Beach'}</div>
+                <h3 class="nisl-card-name">{dest.name}</h3>
+                <div class="nisl-card-distance">{dest.distance_from_amsterdam}</div>
+              </div>
+            </div>
+            <div class="nisl-card-body">
+              <p class="nisl-card-highlight">{dest.highlight}</p>
+              <div class="nisl-card-meta-block">
+                <div class="nisl-card-meta-row">
+                  <span class="nisl-card-meta-label">Best Time</span>
+                  <span class="nisl-card-meta-value">{dest.best_time}</span>
+                </div>
+                <div class="nisl-card-meta-row nisl-card-meta-row--transport">
+                  <span class="nisl-card-meta-label">Getting There</span>
+                  <span class="nisl-card-meta-value">{dest.how_to_get_there}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Wadden UNESCO Section -->
+  <section class="nisl-wadden-section reveal">
+    <div class="container-content">
+      <h2 class="nisl-section-heading">The Wadden Sea — Why It Matters</h2>
+      <p class="nisl-section-sub">The UNESCO designation is not marketing. The Wadden Sea is one of the world's most important ecosystems.</p>
+
+      <div class="nisl-wadden-grid">
+        {waddenFacts.map((fact) => (
+          <div class="nisl-wadden-fact">
+            <span class="nisl-wadden-fact-label">{fact.label}</span>
+            <span class="nisl-wadden-fact-value">{fact.value}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="nisl-wadden-text">
+        <p>The Wadden Sea is the world's largest intertidal sand and mud flat ecosystem — 11,500 km² of tidal flats, salt marshes, dune islands, and shallow waters stretching from Den Helder in the Netherlands to Blåvand in Denmark. It was inscribed as a UNESCO World Heritage Site in 2009 for its outstanding universal value as a natural habitat.</p>
+        <p>What makes it worth the ferry ride: twice a day the tide goes out and reveals 8,000 km² of mud flat teeming with invertebrates — a living buffet that sustains 10–12 million migratory birds along the East Atlantic Flyway. Grey seals and harbor seals haul out on exposed sandbanks. Mudflat hiking (wadlopen) lets you cross between islands on foot at low tide with a guide — one of the most surreal experiences in northern Europe.</p>
+        <p>Visiting the islands is the best way to experience it. Texel is easiest; Vlieland is most unspoiled; Terschelling is most culturally lively. All three are connected by ferry from the mainland.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practical Info -->
+  <section class="nisl-practical-section reveal">
+    <div class="container-content">
+      <h2 class="nisl-section-heading">Practical Info for the Dutch Coast</h2>
+
+      <div class="nisl-practical-grid">
+        <div class="nisl-practical-card">
+          <h3>Sea Temperatures</h3>
+          <p>The North Sea is cold by Mediterranean standards but swimmable in summer. Average sea temperatures: May 13°C, June 16°C, July 18°C, August 19°C, September 17°C, October 14°C. Most Dutch swimmers are in the water from June through September. Zeeland is slightly warmer than the Wadden coast. Wetsuits are worn by surfers year-round.</p>
+        </div>
+        <div class="nisl-practical-card">
+          <h3>Best Beaches for What</h3>
+          <p>Swimming & families: Texel (De Koog), Zeeland (Domburg, Zoutelande), Scheveningen (lifeguards, facilities). Windsurfing & kitesurfing: Brouwersdam (Zeeland), Texel (Paal 17). Walking & nature: Vlieland, Texel De Slufter, Katwijk. Nightlife & bars: Scheveningen, Terschelling in summer. Photography: Vlieland dawn, Katwijk lighthouse, Zeeland delta bridges.</p>
+        </div>
+        <div class="nisl-practical-card">
+          <h3>Getting Around the Islands</h3>
+          <p>Texel: rent a bicycle or take island buses. Car ferry is available but a bike is better. Vlieland: no cars — bicycle only, rent at the ferry terminal. Terschelling: bicycle is standard, some cars allowed for residents. Zeeland: car is ideal for exploring the delta. Scheveningen: tram from The Hague city center. Katwijk: bus or bike from Leiden.</p>
+        </div>
+        <div class="nisl-practical-card">
+          <h3>Costs</h3>
+          <p>Ferry crossings: Texel €5–6 return on foot, €25–30 with a car. Terschelling/Vlieland fast ferry €28–35 return on foot. Accommodation: budget hostel dorm €30–40, B&B €100–150, holiday cottage €150–300/night. Campsite pitch €20–35. Zeeland and Texel are popular with Dutch families — book accommodation well ahead for July–August, especially if you want a cottage.</p>
+        </div>
+        <div class="nisl-practical-card">
+          <h3>Food & Drink</h3>
+          <p>Fresh herring (haring) is the coastal classic — eaten raw with onions from a stall. Zeeland oysters (Zeeuwse oesters) and mussels (mosselen) are outstanding, harvested from the Oosterschelde. Texel has its own lamb breed (Texelaar sheep), local gin (Texel's Own), and craft beer (Texels Bier). North Sea shrimp on buttered bread (garnaalbroodje) is available everywhere on the coast.</p>
+        </div>
+        <div class="nisl-practical-card">
+          <h3>Day Trip vs. Overnight</h3>
+          <p>Scheveningen and Katwijk work as day trips from Amsterdam. Texel can be a long day trip (early ferry, full day, evening ferry) but is better overnight. Vlieland and Terschelling require at least one overnight — the last ferries back are afternoon sailings, and arriving and leaving same-day wastes most of the day. Zeeland is 2 hours away — best as a 2–3 night weekend trip.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="nisl-cta-section reveal">
+    <div class="container-content">
+      <div class="nisl-cta-card">
+        <h2 class="nisl-cta-heading">Plan Your Dutch Islands Escape</h2>
+        <p class="nisl-cta-text">Whether you want a day at Scheveningen or a week on Vlieland, our AI trip planner builds ferry schedules, accommodation, and day-by-day plans tailored to your time and budget.</p>
+        <a href="/plan/" class="nisl-cta-button">Start Planning &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ items={[
+    {
+      question: 'Which Wadden Island should I visit first?',
+      answer: 'Texel is the easiest first island — it\'s the closest to Amsterdam, has the most facilities, the most varied landscape (dunes, beaches, nature reserves, museums), and the most frequent ferry connection (every 30 minutes from Den Helder). Vlieland is for those who want total quiet and no cars. Terschelling is best if you\'re visiting during Oerol Festival in June or want the liveliest social scene among the islands.',
+    },
+    {
+      question: 'Can I swim in the North Sea in the Netherlands?',
+      answer: 'Yes, from June through September the North Sea is swimmable — cold by Mediterranean standards (16–19°C in summer) but many Dutch and visitors swim happily. Zeeland\'s beaches are slightly warmer and more sheltered than the open North Sea coast. Always swim near lifeguard stations on Texel and Scheveningen, which have rip current risks when offshore winds create beach breaks. Flags indicate swimming safety: green (safe), yellow (caution), red (no swimming).',
+    },
+    {
+      question: 'What is wadlopen (mudflat hiking) and how do I do it?',
+      answer: 'Wadlopen (literally "wadden walking" or mudflat hiking) is guided walking across the exposed tidal flats of the Wadden Sea between the islands and mainland. At low tide, the mud flats are exposed and it\'s possible to walk 15–25km between islands with a guide. Guided tours depart from Pieterburen and Holwerd (Groningen/Friesland). The crossing to Schiermonnikoog or Ameland takes 3–5 hours. You\'ll sink to knee depth in spots, ford tidal channels, and emerge at an island. Absolutely do not attempt it without a licensed guide — the tide comes in fast and flat navigation is very difficult.',
+    },
+    {
+      question: 'Is Zeeland worth visiting from Amsterdam?',
+      answer: 'Yes, especially if you have a car and 2–3 days. Zeeland has the warmest beaches in the Netherlands, the Delta Works (a genuine engineering wonder — the largest flood protection system in the world), excellent seafood (Zeeland oysters are world-class), and a cycling and walking landscape unlike anywhere else in the country. Middelburg is a beautiful small city with a lovely market square. Combine a beach day at Domburg with the Delta Works visitor center and Zeeland mussels at a waterfront restaurant.',
+    },
+    {
+      question: 'What is the Oerol Festival on Terschelling?',
+      answer: 'Oerol is an annual outdoor arts and theater festival held on Terschelling every June (typically second week). The entire island becomes the stage — performances in the dunes, on the beach, in the forests, and in farm barns. Around 60,000 visitors come during the 11-day festival, which is extraordinary for an island that normally hosts 2,500 residents. Theater companies, dance troupes, musicians, and visual artists from across Europe perform site-specific works. Book accommodation 6+ months ahead if you want to attend — accommodation sells out fast.',
+    },
+  ]} />
+
+  <!-- Email Capture -->
+  <div class="container-content reveal" style="padding-bottom: var(--space-6);">
+    <EmailCapture
+      leadMagnet="Get Our Free Dutch Islands Weekend Guide"
+      description="A PDF guide to planning a weekend escape from Amsterdam to the Wadden Islands or Zeeland coast — with ferry times, accommodation picks, what to eat, and nature highlights."
+      bullets={[
+        'Ferry schedules and booking tips for Texel, Vlieland, and Terschelling',
+        'Best beaches by activity — swimming, surfing, birdwatching, photography',
+        'Zeeland itinerary: Delta Works + oysters + beach in 2 days',
+        'Seasonal guide — what\'s worth visiting when',
+      ]}
+      guideTag="pillar-islands-amsterdam"
+    />
+  </div>
+
+  <!-- Cross-links -->
+  <section class="nisl-crosslinks reveal">
+    <div class="container-content">
+      <h3 class="nisl-crosslinks-heading">Explore More</h3>
+      <div class="nisl-crosslinks-grid">
+        <a href="/destinations/" class="nisl-crosslink-card">
+          <span class="nisl-crosslink-icon">&#127965;</span>
+          <span class="nisl-crosslink-label">All Destinations</span>
+          <span class="nisl-crosslink-desc">Every Dutch city and region with detailed travel guides</span>
+        </a>
+        <a href="/festivals/" class="nisl-crosslink-card">
+          <span class="nisl-crosslink-icon">&#127881;</span>
+          <span class="nisl-crosslink-label">Festival Calendar</span>
+          <span class="nisl-crosslink-label">Netherlands events worth planning around</span>
+        </a>
+        <a href="/cuisine/" class="nisl-crosslink-card">
+          <span class="nisl-crosslink-icon">&#127860;</span>
+          <span class="nisl-crosslink-label">Dutch Cuisine</span>
+          <span class="nisl-crosslink-desc">From herring to Zeeland oysters and everything between</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<!-- Scroll Reveal Observer -->
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  }
+</script>
+
+<style>
+  /* ================================================================
+     HERO
+     ================================================================ */
+  .nisl-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5rem var(--space-6) 60px;
+    overflow: hidden;
+  }
+
+  .nisl-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .nisl-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .nisl-hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .nisl-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+
+  .nisl-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 var(--space-3);
+  }
+
+  .nisl-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+    max-width: 580px;
+  }
+
+  .nisl-hero-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .nisl-hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nisl-hero-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .nisl-hero-meta-value {
+    font-size: 1.1rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+  }
+
+  .nisl-scroll-hint {
+    position: absolute;
+    bottom: 16px;
+    right: var(--space-6);
+    z-index: 3;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+    animation: nislBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes nislBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ================================================================
+     PERSONAL QUOTE
+     ================================================================ */
+  .nisl-personal {
+    padding: var(--space-8) 0 var(--space-4);
+  }
+
+  .nisl-personal-quote {
+    border-left: 3px solid var(--color-warm-coral);
+    padding-left: var(--space-5);
+    margin: 0;
+    max-width: 760px;
+  }
+
+  .nisl-personal-quote p {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    font-style: italic;
+  }
+
+  .nisl-personal-quote cite {
+    font-size: 0.875rem;
+    color: var(--color-slate);
+    font-style: normal;
+    font-weight: var(--weight-semibold);
+  }
+
+  /* ================================================================
+     SECTION HEADINGS
+     ================================================================ */
+  .nisl-section-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-2);
+    text-align: center;
+  }
+
+  .nisl-section-sub {
+    font-size: 1rem;
+    color: var(--color-slate);
+    text-align: center;
+    margin: 0 0 var(--space-8);
+  }
+
+  /* ================================================================
+     DESTINATION CARDS
+     ================================================================ */
+  .nisl-grid-section {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .nisl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 900px) {
+    .nisl-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .nisl-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .nisl-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .nisl-card-header {
+    padding: var(--space-5) var(--space-5) var(--space-4);
+  }
+
+  .nisl-card-header--island {
+    background: linear-gradient(135deg, #0D4F7C 0%, #1E88E5 100%);
+  }
+
+  .nisl-card-header--beach {
+    background: linear-gradient(135deg, #1B5E20 0%, #43A047 100%);
+  }
+
+  .nisl-card-type-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: var(--space-2);
+  }
+
+  .nisl-card-name {
+    font-size: 1.6rem;
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0 0 var(--space-1);
+    line-height: 1.1;
+  }
+
+  .nisl-card-distance {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .nisl-card-body {
+    padding: var(--space-4) var(--space-5) var(--space-5);
+  }
+
+  .nisl-card-highlight {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-slate);
+    margin: 0 0 var(--space-4);
+  }
+
+  .nisl-card-meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .nisl-card-meta-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .nisl-card-meta-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+    opacity: 0.7;
+    padding-top: 2px;
+  }
+
+  .nisl-card-meta-value {
+    font-size: 0.875rem;
+    color: var(--color-deep-night);
+    line-height: 1.5;
+  }
+
+  /* ================================================================
+     WADDEN SECTION
+     ================================================================ */
+  .nisl-wadden-section {
+    padding: var(--space-10) 0 var(--space-8);
+    background: var(--color-off-white, #f9f8f6);
+  }
+
+  .nisl-wadden-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .nisl-wadden-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nisl-wadden-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .nisl-wadden-fact {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .nisl-wadden-fact-label {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+    opacity: 0.7;
+  }
+
+  .nisl-wadden-fact-value {
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    color: var(--color-deep-night);
+    line-height: 1.4;
+  }
+
+  .nisl-wadden-text {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .nisl-wadden-text p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-slate);
+    margin: 0 0 var(--space-4);
+  }
+
+  .nisl-wadden-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ================================================================
+     PRACTICAL INFO
+     ================================================================ */
+  .nisl-practical-section {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .nisl-practical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 1024px) {
+    .nisl-practical-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nisl-practical-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .nisl-practical-card {
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: var(--space-5);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .nisl-practical-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .nisl-practical-card h3 {
+    font-size: 1rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-3);
+  }
+
+  .nisl-practical-card p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--color-slate);
+    margin: 0;
+  }
+
+  /* ================================================================
+     CTA
+     ================================================================ */
+  .nisl-cta-section {
+    padding: var(--space-8) 0;
+    background: var(--color-off-white, #f9f8f6);
+  }
+
+  .nisl-cta-card {
+    background: linear-gradient(135deg, #0D4F7C 0%, #1B5E20 100%);
+    border-radius: 20px;
+    padding: var(--space-10) var(--space-8);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .nisl-cta-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--weight-bold);
+    color: #fff;
+    margin: 0 0 var(--space-3);
+  }
+
+  .nisl-cta-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 0 0 var(--space-6);
+  }
+
+  .nisl-cta-button {
+    display: inline-block;
+    background: var(--color-warm-coral);
+    color: #fff;
+    font-weight: var(--weight-semibold);
+    font-size: 1rem;
+    padding: var(--space-3) var(--space-7);
+    border-radius: 99px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .nisl-cta-button:hover {
+    background: #d44e3a;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     CROSS-LINKS
+     ================================================================ */
+  .nisl-crosslinks {
+    padding: var(--space-8) 0 var(--space-10);
+  }
+
+  .nisl-crosslinks-heading {
+    font-size: 1.25rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+    margin: 0 0 var(--space-5);
+    text-align: center;
+  }
+
+  .nisl-crosslinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .nisl-crosslinks-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .nisl-crosslink-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    background: var(--color-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: var(--space-5);
+    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .nisl-crosslink-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .nisl-crosslink-icon {
+    font-size: 1.5rem;
+  }
+
+  .nisl-crosslink-label {
+    font-size: 0.95rem;
+    font-weight: var(--weight-bold);
+    color: var(--color-deep-night);
+  }
+
+  .nisl-crosslink-desc {
+    font-size: 0.85rem;
+    color: var(--color-slate);
+    line-height: 1.5;
+  }
+
+  /* ================================================================
+     REVEAL ANIMATION
+     ================================================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
