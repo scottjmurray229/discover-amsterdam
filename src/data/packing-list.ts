@@ -22,7 +22,7 @@ export const AMSTERDAM_CONFIG: PackingConfig = {
   currency: 'EUR',
   plugType: 'Type C/F',
   plugVoltage: '230V',
-  affiliateTag: 'discovermore-20',
+  affiliateTag: 'discoverphili-20',
   destinationEssentials: AMSTERDAM_ESSENTIALS,
   gearRecommendations: AMSTERDAM_GEAR_RECOMMENDATIONS,
 };
