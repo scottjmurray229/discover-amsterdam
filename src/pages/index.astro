@@ -19,8 +19,8 @@ const latestPosts = allBlogPosts.sort((a, b) => new Date(b.data.pubDate).getTime
 // Video map for destination cards — shared data file
 const videoMap = destinationVideoMap;
 
-// Featured destinations — 15 Dutch destinations across 4 regions
-const featuredSlugs = ['athens', 'santorini', 'mykonos', 'crete', 'rhodes', 'corfu', 'meteora', 'thessaloniki', 'naxos', 'zakynthos', 'delphi', 'hydra'];
+// Featured destinations — 10 Netherlands destinations
+const featuredSlugs = ['centrum', 'jordaan', 'museum-quarter', 'delft', 'haarlem', 'rotterdam', 'utrecht', 'the-hague', 'keukenhof', 'kinderdijk'];
 
 // Content pillar links — Amsterdam-specific
 const pillarLinks = [
@@ -46,7 +46,7 @@ import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
 
     <div class="hp-hero-content">
       <h1 class="hp-hero-title">Discover the Magic of Amsterdam</h1>
-      <p class="hp-hero-subtitle">I'm Scott Murray — an American traveler with a deep love for Amsterdam. These are the islands and ancient cities I keep returning to, the tavernas where I actually eat, and the prices I actually paid. From the Acropolis to Santorini's caldera, this is Amsterdam without the tourist traps.</p>
+      <p class="hp-hero-subtitle">I'm Scott Murray — an American traveler with a deep love for the Netherlands. These are the canal neighborhoods, historic cities, and tulip fields I keep returning to, the brown cafes where I actually drink, and the prices I actually paid. From Amsterdam's Jordaan to the UNESCO windmills of Kinderdijk, this is the Netherlands without the tourist traps.</p>
       <div class="hp-hero-actions">
         <a href="#destinations" class="hp-btn hp-btn--primary">Explore Destinations</a>
         <a href="/plan/" class="hp-btn hp-btn--secondary">Plan Your Trip</a>
@@ -75,7 +75,7 @@ import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
                 <span class="hp-trust-label">Regions Covered</span>
               </div>
               <div class="hp-trust-stat">
-                <span class="hp-trust-number">12</span>
+                <span class="hp-trust-number">10</span>
                 <span class="hp-trust-label">Destinations</span>
               </div>
             </div>
@@ -93,7 +93,7 @@ import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
     <div class="hp-immersive-gradient" style="background: linear-gradient(160deg, #091e2f 0%, #0c3547 35%, #0D7377 65%, #091e2f 100%);" />
     <div class="hp-immersive-content">
       <h2 class="hp-immersive-title">Explore by Region</h2>
-      <p class="hp-immersive-text">From the ancient mainland cities to the sun-drenched Cyclades, the lush Ionian coast to the rugged mountains of Crete, Amsterdam offers an incredible diversity of landscapes, cultures, and cuisines.</p>
+      <p class="hp-immersive-text">From Amsterdam's historic canal ring to the windmills of Kinderdijk, the architecture of Rotterdam to Vermeer's Delft, the Netherlands offers an extraordinary variety of landscapes, history, and culture in a remarkably compact country.</p>
     </div>
   </section>
 
@@ -101,39 +101,40 @@ import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
     <div class="container-content">
       <div class="hp-region-grid">
         <div class="hp-region-card">
-          <div class="hp-region-card-header"><div class="hp-region-card-name">Mainland</div><div class="hp-region-card-count">4 destinations</div></div>
-          <p class="hp-region-card-desc">The ancient grandeur of Athens, the vibrant waterfront of Thessaloniki, the floating monasteries of Meteora, and the sacred oracle at Delphi. Where Dutch history comes alive.</p>
+          <div class="hp-region-card-header"><div class="hp-region-card-name">Amsterdam</div><div class="hp-region-card-count">5 neighborhoods</div></div>
+          <p class="hp-region-card-desc">The canal ring's UNESCO gabled houses, the Jordaan's brown cafes and galleries, the Museum Quarter's world-class art, and the creative energy of Amsterdam North. The city in depth.</p>
           <div class="hp-region-tags">
-            <a class="hp-dest-chip" href="/destinations/athens/">Athens</a>
-            <a class="hp-dest-chip" href="/destinations/thessaloniki/">Thessaloniki</a>
-            <a class="hp-dest-chip" href="/destinations/meteora/">Meteora</a>
-            <a class="hp-dest-chip" href="/destinations/delphi/">Delphi</a>
+            <a class="hp-dest-chip" href="/destinations/centrum/">Centrum</a>
+            <a class="hp-dest-chip" href="/destinations/jordaan/">Jordaan</a>
+            <a class="hp-dest-chip" href="/destinations/museum-quarter/">Museum Quarter</a>
+            <a class="hp-dest-chip" href="/destinations/de-pijp/">De Pijp</a>
+            <a class="hp-dest-chip" href="/destinations/amsterdam-north/">Amsterdam North</a>
           </div>
         </div>
         <div class="hp-region-card">
-          <div class="hp-region-card-header"><div class="hp-region-card-name">Cyclades</div><div class="hp-region-card-count">3 destinations</div></div>
-          <p class="hp-region-card-desc">Santorini's iconic caldera sunsets, Mykonos' whitewashed windmills and vibrant nightlife, and Naxos' unspoiled beaches and mountain villages. The quintessential Dutch islands.</p>
+          <div class="hp-region-card-header"><div class="hp-region-card-name">South Holland</div><div class="hp-region-card-count">3 destinations</div></div>
+          <p class="hp-region-card-desc">Vermeer's Delft and its Royal Delft porcelain factory. Rotterdam's radical post-war architecture and the Markthal. Kinderdijk's 19 UNESCO windmills in original polder setting.</p>
           <div class="hp-region-tags">
-            <a class="hp-dest-chip" href="/destinations/santorini/">Santorini</a>
-            <a class="hp-dest-chip" href="/destinations/mykonos/">Mykonos</a>
-            <a class="hp-dest-chip" href="/destinations/naxos/">Naxos</a>
+            <a class="hp-dest-chip" href="/destinations/delft/">Delft</a>
+            <a class="hp-dest-chip" href="/destinations/rotterdam/">Rotterdam</a>
+            <a class="hp-dest-chip" href="/destinations/kinderdijk/">Kinderdijk</a>
           </div>
         </div>
         <div class="hp-region-card">
-          <div class="hp-region-card-header"><div class="hp-region-card-name">Dodecanese & Ionian</div><div class="hp-region-card-count">3 destinations</div></div>
-          <p class="hp-region-card-desc">The medieval old town of Rhodes, Corfu's Venetian architecture and emerald waters, and Zakynthos' famous Shipwreck Beach. Where east meets west in the Dutch islands.</p>
+          <div class="hp-region-card-header"><div class="hp-region-card-name">North & Central Holland</div><div class="hp-region-card-count">3 destinations</div></div>
+          <p class="hp-region-card-desc">Haarlem's Frans Hals Museum and market. Utrecht's sunken wharf canals and Dom Tower. Keukenhof's 7 million tulips in a spring that only lasts eight weeks.</p>
           <div class="hp-region-tags">
-            <a class="hp-dest-chip" href="/destinations/rhodes/">Rhodes</a>
-            <a class="hp-dest-chip" href="/destinations/corfu/">Corfu</a>
-            <a class="hp-dest-chip" href="/destinations/zakynthos/">Zakynthos</a>
+            <a class="hp-dest-chip" href="/destinations/haarlem/">Haarlem</a>
+            <a class="hp-dest-chip" href="/destinations/utrecht/">Utrecht</a>
+            <a class="hp-dest-chip" href="/destinations/keukenhof/">Keukenhof</a>
           </div>
         </div>
         <div class="hp-region-card">
-          <div class="hp-region-card-header"><div class="hp-region-card-name">Crete & Saronic</div><div class="hp-region-card-count">2 destinations</div></div>
-          <p class="hp-region-card-desc">Crete's Minoan palaces, rugged gorges, and world-class cuisine. Hydra's car-free harbor and artist colony charm. Amsterdam at its most authentic.</p>
+          <div class="hp-region-card-header"><div class="hp-region-card-name">Beyond the Randstad</div><div class="hp-region-card-count">2 destinations</div></div>
+          <p class="hp-region-card-desc">The Hague's Mauritshuis and Girl with a Pearl Earring. Maastricht's French-influenced food scene and the most European atmosphere in the Netherlands.</p>
           <div class="hp-region-tags">
-            <a class="hp-dest-chip" href="/destinations/crete/">Crete</a>
-            <a class="hp-dest-chip" href="/destinations/hydra/">Hydra</a>
+            <a class="hp-dest-chip" href="/destinations/the-hague/">The Hague</a>
+            <a class="hp-dest-chip" href="/destinations/maastricht/">Maastricht</a>
           </div>
         </div>
       </div>
@@ -147,7 +148,7 @@ import NetworkCrossLinks from '../components/NetworkCrossLinks.astro';
     <div class="hp-immersive-gradient" style="background: linear-gradient(160deg, #064E3B 0%, #0D7377 35%, #0E7490 65%, #1A2332 100%);" />
     <div class="hp-immersive-content">
       <h2 class="hp-immersive-title">In-Depth Destination Guides</h2>
-      <p class="hp-immersive-text">Every price verified in euros. Every taverna visited. Every tip from personal experience across 12 Dutch destinations.</p>
+      <p class="hp-immersive-text">Every price verified in euros. Every brown cafe visited. Every tip from personal experience across 10 Netherlands destinations.</p>
     </div>
   </section>
 

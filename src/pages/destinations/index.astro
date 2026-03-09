@@ -12,7 +12,7 @@ const allDests = await getCollection('destinations', (entry) => {
 });
 
 // Group by region and sort alphabetically
-const regions: Record<string, typeof allDests> = { 'centrum': [], 'canal-ring': [], 'south': [], 'north': [], 'east': [], 'west': [], 'day-trip': [] };
+const regions: Record<string, typeof allDests> = { 'centrum': [], 'canal-ring': [], 'south': [], 'north': [], 'east': [], 'west': [], 'day-trip': [], 'netherlands': [] };
 allDests.forEach(d => {
   if (regions[d.data.region]) regions[d.data.region].push(d);
 });
@@ -61,6 +61,11 @@ const regionMeta: Record<string, { label: string; desc: string; gradient: string
     desc: 'Easy day trips from Amsterdam — windmills at Zaanse Schans, tulips at Keukenhof, and the charming city of Haarlem.',
     gradient: 'linear-gradient(135deg, #064E3B, #0D7377, #06B6D4)',
   },
+  'netherlands': {
+    label: 'Beyond Amsterdam',
+    desc: 'The Netherlands beyond the capital — Delft\'s Vermeer and Delftware, Rotterdam\'s radical architecture, Maastricht\'s French-influenced food scene, and the UNESCO windmills of Kinderdijk.',
+    gradient: 'linear-gradient(135deg, #1e3a5f, #2563eb, #3b82f6)',
+  },
 };
 ---
 <BaseLayout
@@ -87,7 +92,7 @@ const regionMeta: Record<string, { label: string; desc: string; gradient: string
   </div>
 
   <!-- Destination Cards by Region -->
-  {(['centrum', 'canal-ring', 'south', 'north', 'east', 'west', 'day-trip'] as const).map(regionKey => {
+  {(['centrum', 'canal-ring', 'south', 'north', 'east', 'west', 'day-trip', 'netherlands'] as const).map(regionKey => {
     const dests = regions[regionKey];
     const meta = regionMeta[regionKey];
     if (!dests || dests.length === 0) return null;
