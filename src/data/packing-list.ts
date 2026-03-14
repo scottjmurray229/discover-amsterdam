@@ -5,6 +5,36 @@ export const AMSTERDAM_ESSENTIALS: PackingItem[] = [
   { id: 'ams-bikeclothes', name: 'Bike-Friendly Clothing', category: 'destination', description: 'You will rent a bike. Everyone does. Loose trousers that can be cuffed or clips to keep pants out of the chain — and nothing too precious that can\'t handle wind and occasional rain.', essential: false, amazonSearchFallback: 'trouser+clips+bike+commute+pants', affiliatePrice: '$8–12' },
   { id: 'ams-layers', name: 'Layering System (year-round)', category: 'destination', description: 'Amsterdam has no strong season — it\'s cool and damp in summer, cold and damp in winter. Layers that can be added or removed through the day are the only reliable system.', essential: true, amazonSearchFallback: 'travel+layers+packable+lightweight', affiliatePrice: '$30–60' },
   { id: 'ams-adapter', name: 'Type C/F Adapter', category: 'destination', description: 'Netherlands uses 230V European standard. American plugs don\'t fit without an adapter.', essential: true, amazonSearchFallback: 'european+travel+adapter+type+c+f', affiliatePrice: '$12–20' },
+  {
+    id: 'vpn-subscription',
+    name: 'VPN Subscription',
+    category: 'electronics',
+    description: 'Secure your data on public WiFi — essential for hotel, airport, and cafe networks abroad.',
+    essential: false,
+    affiliateUrl: 'https://go.nordvpn.net/aff_c?offer_id=15&aff_id=XXXXX&url_id=902',
+    affiliatePrice: '~$3/month',
+    affiliatePartner: 'NordVPN',
+  },
+  {
+    id: '360-camera',
+    name: '360° Camera',
+    category: 'gear',
+    description: 'Capture immersive views of architecture, cityscapes, and landmarks.',
+    essential: false,
+    affiliateUrl: 'https://www.insta360.com/sal/x5?utm_source=AffiliateCenter&utm_medium=copylink&utm_term=INRSG7H5RTR',
+    affiliatePrice: '~$499',
+    affiliatePartner: 'Insta360',
+  },
+  {
+    id: 'phone-gimbal',
+    name: 'Phone Gimbal for Travel Vlogging',
+    category: 'electronics',
+    description: 'Stabilized video from your phone — no editing needed.',
+    essential: false,
+    affiliateUrl: 'https://www.insta360.com/sal/flow-2-pro?utm_source=AffiliateCenter&utm_medium=copylink&utm_term=INRSG7H5RTR',
+    affiliatePrice: '~$149',
+    affiliatePartner: 'Insta360',
+  },
 ];
 
 export const AMSTERDAM_GEAR_RECOMMENDATIONS: GearRecommendation[] = [
